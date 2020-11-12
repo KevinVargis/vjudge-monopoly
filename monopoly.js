@@ -2088,7 +2088,7 @@ function sellHouse(index) {
 }
 
 function showStats() {
-	console.log(hai);
+	console.log("hai");
 	var HTML, sq, p;
 	var mortgagetext,
 	housetext;
@@ -2819,8 +2819,8 @@ window.onload = function() {
 
 	// Add images to enlarges.
 	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
-	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
-	document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
+	// document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	// document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
 
 	corrections();
 
@@ -2989,7 +2989,7 @@ window.onload = function() {
 
 	$("#sellhousebutton").click(function() { sellHouse(getCheckedProperty()); });
 
-	$("#viewstats").on("click", showStats);
+	// $("#viewstats").on("click", showStats);
 	$("#statsclose, #statsbackground").on("click", function() {
 		$("#statswrap").hide();
 		$("#statsbackground").fadeOut(400);
