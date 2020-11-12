@@ -325,12 +325,12 @@ function Game() {
 		return true;
 	};
 
-	document.getElementById("trade-leftp-money").onkeydown = tradeMoneyOnKeyDown;
-	document.getElementById("trade-rightp-money").onkeydown = tradeMoneyOnKeyDown;
-	document.getElementById("trade-leftp-money").onfocus = tradeMoneyOnFocus;
-	document.getElementById("trade-rightp-money").onfocus = tradeMoneyOnFocus;
-	document.getElementById("trade-leftp-money").onchange = tradeMoneyOnChange;
-	document.getElementById("trade-rightp-money").onchange = tradeMoneyOnChange;
+	// document.getElementById("trade-leftp-money").onkeydown = tradeMoneyOnKeyDown;
+	// document.getElementById("trade-rightp-money").onkeydown = tradeMoneyOnKeyDown;
+	// document.getElementById("trade-leftp-money").onfocus = tradeMoneyOnFocus;
+	// document.getElementById("trade-rightp-money").onfocus = tradeMoneyOnFocus;
+	// document.getElementById("trade-leftp-money").onchange = tradeMoneyOnChange;
+	// document.getElementById("trade-rightp-money").onchange = tradeMoneyOnChange;
 
 	var resetTrade = function(initiator, recipient, allowRecipientToBeChanged) {
 		var currentSquare;
@@ -3010,7 +3010,7 @@ window.onload = function() {
 	});
 
 
-	$("#trade-menu-item").click(game.trade);
+	// $("#trade-menu-item").click(game.trade);
 
 
 };
