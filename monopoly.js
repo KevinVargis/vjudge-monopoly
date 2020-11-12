@@ -1283,7 +1283,7 @@ function updatePosition() {
 	// Reset borders
 	// document.getElementById("jail").style.border = "1px solid black";
 	// document.getElementById("jailpositionholder").innerHTML = "";
-	for (var i = 0; i < 20; i++) {
+	for (var i = 0; i < 24; i++) {
 		document.getElementById("cell" + i).style.border = "1px solid black";
 		document.getElementById("cell" + i + "positionholder").innerHTML = "";
 
@@ -1291,7 +1291,7 @@ function updatePosition() {
 
 	var sq, left, top;
 
-	for (var x = 0; x < 20; x++) {
+	for (var x = 0; x < 24; x++) {
 		sq = square[x];
 		left = 0;
 		top = 0;
@@ -2103,7 +2103,7 @@ function showStats() {
 		}
 		HTML += "<td class='statscell' id='statscell" + x + "' style='border: 2px solid " + p.color + "' ><div class='statsplayername'>" + p.name + "</div>";
 
-		for (var i = 0; i < 20; i++) {
+		for (var i = 0; i < 24; i++) {
 			sq = square[i];
 
 			if (sq.owner == x) {
@@ -2526,8 +2526,8 @@ function roll() {
 		p.position += die1 + die2;
 
 		// Collect $200 salary as you pass GO
-		if (p.position >= 20) {
-			p.position -= 20;
+		if (p.position >= 24) {
+			p.position -= 24;
 			p.money += 2;
 			addAlert(p.name + " collected a $200 salary for passing GO.");
 		}
@@ -2771,7 +2771,7 @@ window.onload = function() {
 	enlargeWrap.id = "enlarge-wrap";
 
 	var HTML = "";
-	for (var i = 0; i < 20; i++) {
+	for (var i = 0; i < 24; i++) {
 		HTML += "<div id='enlarge" + i + "' class='enlarge'>";
 		HTML += "<div id='enlarge" + i + "color' class='enlarge-color'></div><br /><div id='enlarge" + i + "name' class='enlarge-name'></div>";
 		HTML += "<br /><div id='enlarge" + i + "price' class='enlarge-price'></div>";
@@ -2786,12 +2786,14 @@ window.onload = function() {
 	var currentCellName;
 	var currentCellOwner;
 
-	for (var i = 0; i < 20; i++) {
+	for (var i = 0; i < 24; i++) {
 		s = square[i];
 
 		currentCell = document.getElementById("cell" + i);
+		
 
 		currentCellAnchor = currentCell.appendChild(document.createElement("div"));
+		// console.log(i);
 		currentCellAnchor.id = "cell" + i + "anchor";
 		currentCellAnchor.className = "cell-anchor";
 
@@ -2819,7 +2821,7 @@ window.onload = function() {
 
 	// Add images to enlarges.
 	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
-	// document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
 	// document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
 
 	corrections();
