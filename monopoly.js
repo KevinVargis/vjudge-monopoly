@@ -1279,9 +1279,10 @@ function popup(HTML, action, option) {
 
 
 function updatePosition() {
+	// console.log("hai");
 	// Reset borders
-	document.getElementById("jail").style.border = "1px solid black";
-	document.getElementById("jailpositionholder").innerHTML = "";
+	// document.getElementById("jail").style.border = "1px solid black";
+	// document.getElementById("jailpositionholder").innerHTML = "";
 	for (var i = 0; i < 20; i++) {
 		document.getElementById("cell" + i).style.border = "1px solid black";
 		document.getElementById("cell" + i + "positionholder").innerHTML = "";
@@ -1297,8 +1298,9 @@ function updatePosition() {
 
 		for (var y = turn; y <= pcount; y++) {
 
-			if (player[y].position == x && !player[y].jail) {
+			if (player[y].position == x) {
 
+				// console.log("hai enter");
 				document.getElementById("cell" + x + "positionholder").innerHTML += "<div class='cell-position' title='" + player[y].name + "' style='background-color: " + player[y].color + "; left: " + left + "px; top: " + top + "px;'></div>";
 				if (left == 36) {
 					left = 0;
@@ -2086,6 +2088,7 @@ function sellHouse(index) {
 }
 
 function showStats() {
+	console.log(hai);
 	var HTML, sq, p;
 	var mortgagetext,
 	housetext;
@@ -2100,7 +2103,7 @@ function showStats() {
 		}
 		HTML += "<td class='statscell' id='statscell" + x + "' style='border: 2px solid " + p.color + "' ><div class='statsplayername'>" + p.name + "</div>";
 
-		for (var i = 0; i < 40; i++) {
+		for (var i = 0; i < 20; i++) {
 			sq = square[i];
 
 			if (sq.owner == x) {
@@ -2523,9 +2526,9 @@ function roll() {
 		p.position += die1 + die2;
 
 		// Collect $200 salary as you pass GO
-		if (p.position >= 40) {
-			p.position -= 40;
-			p.money += 200;
+		if (p.position >= 20) {
+			p.position -= 20;
+			p.money += 2;
 			addAlert(p.name + " collected a $200 salary for passing GO.");
 		}
 
@@ -2768,7 +2771,7 @@ window.onload = function() {
 	enlargeWrap.id = "enlarge-wrap";
 
 	var HTML = "";
-	for (var i = 0; i < 40; i++) {
+	for (var i = 0; i < 20; i++) {
 		HTML += "<div id='enlarge" + i + "' class='enlarge'>";
 		HTML += "<div id='enlarge" + i + "color' class='enlarge-color'></div><br /><div id='enlarge" + i + "name' class='enlarge-name'></div>";
 		HTML += "<br /><div id='enlarge" + i + "price' class='enlarge-price'></div>";
@@ -2825,7 +2828,7 @@ window.onload = function() {
 	$("<div>", {id: "jailpositionholder" }).appendTo("#jail");
 	$("<span>").text("Jail").appendTo("#jail");
 
-	document.getElementById("jail").enlargeId = "enlarge40";
+	// document.getElementById("jail").enlargeId = "enlarge40";
 
 	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
 
