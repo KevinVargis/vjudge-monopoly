@@ -2300,17 +2300,17 @@ function land(increasedRent) {
 	// Allow player to buy the property on which he landed.
 	if (s.price !== 0 && s.owner === 0) {
 
-		if (!p.human) {
+		// if (!p.human) {
 
-			if (p.AI.buyProperty(p.position)) {
-				buy();
-			}
-		} else {
+		// 	if (p.AI.buyProperty(p.position)) {
+		// 		buy();
+		// 	}
+		// } else {
 			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
-		}
+		// }
 
 
-		game.addPropertyToAuctionQueue(p.position);
+		// game.addPropertyToAuctionQueue(p.position);
 	}
 
 	// Collect rent
@@ -2435,91 +2435,88 @@ function roll() {
 	var die1 = game.getDie(1);
 	var die2 = game.getDie(2);
 
-	doublecount++;
 
-	if (die1 == die2) {
-		addAlert(p.name + " rolled " + (die1 + die2) + " - doubles.");
-	} else {
+	// if (die1 == die2) {
+	// 	addAlert(p.name + " rolled " + (die1 + die2) + " - doubles.");
+	// } else {
 		addAlert(p.name + " rolled " + (die1 + die2) + ".");
-	}
+	// }
 
-	if (die1 == die2 && !p.jail) {
-		updateDice(die1, die2);
+	// if (die1 == die2 && !p.jail) {
+	// 	updateDice(die1, die2);
 
-		if (doublecount < 3) {
-			document.getElementById("nextbutton").value = "Roll again";
-			document.getElementById("nextbutton").title = "You threw doubles. Roll again.";
+	// 	if (doublecount < 3) {
+	// 		document.getElementById("nextbutton").value = "Roll again";
+	// 		document.getElementById("nextbutton").title = "You threw doubles. Roll again.";
 
-		// If player rolls doubles three times in a row, send him to jail
-		} else if (doublecount === 3) {
-			p.jail = true;
-			doublecount = 0;
-			addAlert(p.name + " rolled doubles three times in a row.");
-			updateMoney();
+	// 	// If player rolls doubles three times in a row, send him to jail
+	// 	} else if (doublecount === 3) {
+	// 		p.jail = true;
+	// 		doublecount = 0;
+	// 		addAlert(p.name + " rolled doubles three times in a row.");
+	// 		updateMoney();
 
 
-			if (p.human) {
-				popup("You rolled doubles three times in a row. Go to jail.", gotojail);
-			} else {
-				gotojail();
-			}
+	// 		if (p.human) {
+	// 			popup("You rolled doubles three times in a row. Go to jail.", gotojail);
+	// 		} else {
+	// 			gotojail();
+	// 		}
 
-			return;
-		}
-	} else {
+	// 		return;
+	// 	}
 		document.getElementById("nextbutton").value = "End turn";
 		document.getElementById("nextbutton").title = "End turn and advance to the next player.";
 		doublecount = 0;
-	}
 
 	updatePosition();
 	updateMoney();
 	updateOwned();
 
-	if (p.jail === true) {
-		p.jailroll++;
+	// if (p.jail === true) {
+	// 	p.jailroll++;
 
-		updateDice(die1, die2);
-		if (die1 == die2) {
-			document.getElementById("jail").style.border = "1px solid black";
-			document.getElementById("cell11").style.border = "2px solid " + p.color;
-			$("#landed").hide();
+	// 	updateDice(die1, die2);
+	// 	if (die1 == die2) {
+	// 		document.getElementById("jail").style.border = "1px solid black";
+	// 		document.getElementById("cell11").style.border = "2px solid " + p.color;
+	// 		$("#landed").hide();
 
-			p.jail = false;
-			p.jailroll = 0;
-			p.position = 10 + die1 + die2;
-			doublecount = 0;
+	// 		p.jail = false;
+	// 		p.jailroll = 0;
+	// 		p.position = 10 + die1 + die2;
+	// 		doublecount = 0;
 
-			addAlert(p.name + " rolled doubles to get out of jail.");
+	// 		addAlert(p.name + " rolled doubles to get out of jail.");
 
-			land();
-		} else {
-			if (p.jailroll === 3) {
+	// 		land();
+	// 	} else {
+	// 		if (p.jailroll === 3) {
 
-				if (p.human) {
-					popup("<p>You must pay the $50 fine.</p>", function() {
-						payfifty();
-						player[turn].position=10 + die1 + die2;
-						land();
-					});
-				} else {
-					payfifty();
-					p.position = 10 + die1 + die2;
-					land();
-				}
-			} else {
-				$("#landed").show();
-				document.getElementById("landed").innerHTML = "You are in jail.";
+	// 			if (p.human) {
+	// 				popup("<p>You must pay the $50 fine.</p>", function() {
+	// 					payfifty();
+	// 					player[turn].position=10 + die1 + die2;
+	// 					land();
+	// 				});
+	// 			} else {
+	// 				payfifty();
+	// 				p.position = 10 + die1 + die2;
+	// 				land();
+	// 			}
+	// 		} else {
+	// 			$("#landed").show();
+	// 			document.getElementById("landed").innerHTML = "You are in jail.";
 
-				if (!p.human) {
-					popup(p.AI.alertList, game.next);
-					p.AI.alertList = "";
-				}
-			}
-		}
+			// 	if (!p.human) {
+			// 		popup(p.AI.alertList, game.next);
+			// 		p.AI.alertList = "";
+			// 	}
+			// }
+		// }
 
 
-	} else {
+	// } else {
 		updateDice(die1, die2);
 
 		// Move player
@@ -2533,7 +2530,7 @@ function roll() {
 		}
 
 		land();
-	}
+	// }
 }
 
 function play() {
