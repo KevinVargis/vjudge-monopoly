@@ -332,275 +332,275 @@ function Game() {
 	// document.getElementById("trade-leftp-money").onchange = tradeMoneyOnChange;
 	// document.getElementById("trade-rightp-money").onchange = tradeMoneyOnChange;
 
-	var resetTrade = function(initiator, recipient, allowRecipientToBeChanged) {
-		var currentSquare;
-		var currentTableRow;
-		var currentTableCell;
-		var currentTableCellCheckbox;
-		var nameSelect;
-		var currentOption;
-		var allGroupUninproved;
-		var currentName;
+	// var resetTrade = function(initiator, recipient, allowRecipientToBeChanged) {
+	// 	var currentSquare;
+	// 	var currentTableRow;
+	// 	var currentTableCell;
+	// 	var currentTableCellCheckbox;
+	// 	var nameSelect;
+	// 	var currentOption;
+	// 	var allGroupUninproved;
+	// 	var currentName;
 
-		var tableRowOnClick = function(e) {
-			var checkboxElement = this.firstChild.firstChild;
+	// 	var tableRowOnClick = function(e) {
+	// 		var checkboxElement = this.firstChild.firstChild;
 
-			if (checkboxElement !== e.srcElement) {
-				checkboxElement.checked = !checkboxElement.checked;
-			}
+	// 		if (checkboxElement !== e.srcElement) {
+	// 			checkboxElement.checked = !checkboxElement.checked;
+	// 		}
 
-			$("#proposetradebutton").show();
-			$("#canceltradebutton").show();
-			$("#accepttradebutton").hide();
-			$("#rejecttradebutton").hide();
-		};
+	// 		$("#proposetradebutton").show();
+	// 		$("#canceltradebutton").show();
+	// 		$("#accepttradebutton").hide();
+	// 		$("#rejecttradebutton").hide();
+	// 	};
 
-		var initiatorProperty = document.getElementById("trade-leftp-property");
-		var recipientProperty = document.getElementById("trade-rightp-property");
+	// 	var initiatorProperty = document.getElementById("trade-leftp-property");
+	// 	var recipientProperty = document.getElementById("trade-rightp-property");
 
-		currentInitiator = initiator;
-		currentRecipient = recipient;
+	// 	currentInitiator = initiator;
+	// 	currentRecipient = recipient;
 
-		// Empty elements.
-		while (initiatorProperty.lastChild) {
-			initiatorProperty.removeChild(initiatorProperty.lastChild);
-		}
+	// 	// Empty elements.
+	// 	while (initiatorProperty.lastChild) {
+	// 		initiatorProperty.removeChild(initiatorProperty.lastChild);
+	// 	}
 
-		while (recipientProperty.lastChild) {
-			recipientProperty.removeChild(recipientProperty.lastChild);
-		}
+	// 	while (recipientProperty.lastChild) {
+	// 		recipientProperty.removeChild(recipientProperty.lastChild);
+	// 	}
 
-		var initiatorSideTable = document.createElement("table");
-		var recipientSideTable = document.createElement("table");
+	// 	var initiatorSideTable = document.createElement("table");
+	// 	var recipientSideTable = document.createElement("table");
 
 
-		for (var i = 0; i < 40; i++) {
-			currentSquare = square[i];
+	// 	for (var i = 0; i < 40; i++) {
+	// 		currentSquare = square[i];
 
-			// A property cannot be traded if any properties in its group have been improved.
-			if (currentSquare.house > 0 || currentSquare.groupNumber === 0) {
-				continue;
-			}
+	// 		// A property cannot be traded if any properties in its group have been improved.
+	// 		if (currentSquare.house > 0 || currentSquare.groupNumber === 0) {
+	// 			continue;
+	// 		}
 
-			allGroupUninproved = true;
-			var max = currentSquare.group.length;
-			for (var j = 0; j < max; j++) {
+	// 		allGroupUninproved = true;
+	// 		var max = currentSquare.group.length;
+	// 		for (var j = 0; j < max; j++) {
 
-				if (square[currentSquare.group[j]].house > 0) {
-					allGroupUninproved = false;
-					break;
-				}
-			}
+	// 			if (square[currentSquare.group[j]].house > 0) {
+	// 				allGroupUninproved = false;
+	// 				break;
+	// 			}
+	// 		}
 
-			if (!allGroupUninproved) {
-				continue;
-			}
+	// 		if (!allGroupUninproved) {
+	// 			continue;
+	// 		}
 
-			// Offered properties.
-			if (currentSquare.owner === initiator.index) {
-				currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-				currentTableRow.onclick = tableRowOnClick;
+	// 		// Offered properties.
+	// 		if (currentSquare.owner === initiator.index) {
+	// 			currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
+	// 			currentTableRow.onclick = tableRowOnClick;
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellcheckbox";
-				currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-				currentTableCellCheckbox.type = "checkbox";
-				currentTableCellCheckbox.id = "tradeleftcheckbox" + i;
-				currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellcheckbox";
+	// 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 			currentTableCellCheckbox.type = "checkbox";
+	// 			currentTableCellCheckbox.id = "tradeleftcheckbox" + i;
+	// 			currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellcolor";
-				currentTableCell.style.backgroundColor = currentSquare.color;
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellcolor";
+	// 			currentTableCell.style.backgroundColor = currentSquare.color;
 
-				if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
-					currentTableCell.style.borderColor = "grey";
-				} else {
-					currentTableCell.style.borderColor = currentSquare.color;
-				}
+	// 			if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
+	// 				currentTableCell.style.borderColor = "grey";
+	// 			} else {
+	// 				currentTableCell.style.borderColor = currentSquare.color;
+	// 			}
 
-				currentTableCell.propertyIndex = i;
-				currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
-				currentTableCell.onmouseout = hidedeed;
+	// 			currentTableCell.propertyIndex = i;
+	// 			currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
+	// 			currentTableCell.onmouseout = hidedeed;
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellname";
-				if (currentSquare.mortgage) {
-					currentTableCell.title = "Mortgaged";
-					currentTableCell.style.color = "grey";
-				}
-				currentTableCell.textContent = currentSquare.name;
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellname";
+	// 			if (currentSquare.mortgage) {
+	// 				currentTableCell.title = "Mortgaged";
+	// 				currentTableCell.style.color = "grey";
+	// 			}
+	// 			currentTableCell.textContent = currentSquare.name;
 
-			// Requested properties.
-			} else if (currentSquare.owner === recipient.index) {
-				currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-				currentTableRow.onclick = tableRowOnClick;
+	// 		// Requested properties.
+	// 		} else if (currentSquare.owner === recipient.index) {
+	// 			currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
+	// 			currentTableRow.onclick = tableRowOnClick;
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellcheckbox";
-				currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-				currentTableCellCheckbox.type = "checkbox";
-				currentTableCellCheckbox.id = "traderightcheckbox" + i;
-				currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellcheckbox";
+	// 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 			currentTableCellCheckbox.type = "checkbox";
+	// 			currentTableCellCheckbox.id = "traderightcheckbox" + i;
+	// 			currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellcolor";
-				currentTableCell.style.backgroundColor = currentSquare.color;
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellcolor";
+	// 			currentTableCell.style.backgroundColor = currentSquare.color;
 
-				if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
-					currentTableCell.style.borderColor = "grey";
-				} else {
-					currentTableCell.style.borderColor = currentSquare.color;
-				}
+	// 			if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
+	// 				currentTableCell.style.borderColor = "grey";
+	// 			} else {
+	// 				currentTableCell.style.borderColor = currentSquare.color;
+	// 			}
 
-				currentTableCell.propertyIndex = i;
-				currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
-				currentTableCell.onmouseout = hidedeed;
+	// 			currentTableCell.propertyIndex = i;
+	// 			currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
+	// 			currentTableCell.onmouseout = hidedeed;
 
-				currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-				currentTableCell.className = "propertycellname";
-				if (currentSquare.mortgage) {
-					currentTableCell.title = "Mortgaged";
-					currentTableCell.style.color = "grey";
-				}
-				currentTableCell.textContent = currentSquare.name;
-			}
-		}
+	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 			currentTableCell.className = "propertycellname";
+	// 			if (currentSquare.mortgage) {
+	// 				currentTableCell.title = "Mortgaged";
+	// 				currentTableCell.style.color = "grey";
+	// 			}
+	// 			currentTableCell.textContent = currentSquare.name;
+	// 		}
+	// 	}
 
-		if (initiator.communityChestJailCard) {
-			currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-			currentTableRow.onclick = tableRowOnClick;
+	// 	if (initiator.communityChestJailCard) {
+	// 		currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
+	// 		currentTableRow.onclick = tableRowOnClick;
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcheckbox";
-			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-			currentTableCellCheckbox.type = "checkbox";
-			currentTableCellCheckbox.id = "tradeleftcheckbox40";
-			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcheckbox";
+	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 		currentTableCellCheckbox.type = "checkbox";
+	// 		currentTableCellCheckbox.id = "tradeleftcheckbox40";
+	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcolor";
-			currentTableCell.style.backgroundColor = "white";
-			currentTableCell.style.borderColor = "grey";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcolor";
+	// 		currentTableCell.style.backgroundColor = "white";
+	// 		currentTableCell.style.borderColor = "grey";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellname";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellname";
 
-			currentTableCell.textContent = "Get Out of Jail Free Card";
-		} else if (recipient.communityChestJailCard) {
-			currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-			currentTableRow.onclick = tableRowOnClick;
+	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
+	// 	} else if (recipient.communityChestJailCard) {
+	// 		currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
+	// 		currentTableRow.onclick = tableRowOnClick;
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcheckbox";
-			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-			currentTableCellCheckbox.type = "checkbox";
-			currentTableCellCheckbox.id = "traderightcheckbox40";
-			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcheckbox";
+	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 		currentTableCellCheckbox.type = "checkbox";
+	// 		currentTableCellCheckbox.id = "traderightcheckbox40";
+	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcolor";
-			currentTableCell.style.backgroundColor = "white";
-			currentTableCell.style.borderColor = "grey";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcolor";
+	// 		currentTableCell.style.backgroundColor = "white";
+	// 		currentTableCell.style.borderColor = "grey";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellname";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellname";
 
-			currentTableCell.textContent = "Get Out of Jail Free Card";
-		}
+	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
+	// 	}
 
-		if (initiator.chanceJailCard) {
-			currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-			currentTableRow.onclick = tableRowOnClick;
+	// 	if (initiator.chanceJailCard) {
+	// 		currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
+	// 		currentTableRow.onclick = tableRowOnClick;
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcheckbox";
-			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-			currentTableCellCheckbox.type = "checkbox";
-			currentTableCellCheckbox.id = "tradeleftcheckbox41";
-			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcheckbox";
+	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 		currentTableCellCheckbox.type = "checkbox";
+	// 		currentTableCellCheckbox.id = "tradeleftcheckbox41";
+	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcolor";
-			currentTableCell.style.backgroundColor = "white";
-			currentTableCell.style.borderColor = "grey";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcolor";
+	// 		currentTableCell.style.backgroundColor = "white";
+	// 		currentTableCell.style.borderColor = "grey";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellname";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellname";
 
-			currentTableCell.textContent = "Get Out of Jail Free Card";
-		} else if (recipient.chanceJailCard) {
-			currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-			currentTableRow.onclick = tableRowOnClick;
+	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
+	// 	} else if (recipient.chanceJailCard) {
+	// 		currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
+	// 		currentTableRow.onclick = tableRowOnClick;
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcheckbox";
-			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-			currentTableCellCheckbox.type = "checkbox";
-			currentTableCellCheckbox.id = "traderightcheckbox41";
-			currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcheckbox";
+	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
+	// 		currentTableCellCheckbox.type = "checkbox";
+	// 		currentTableCellCheckbox.id = "traderightcheckbox41";
+	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellcolor";
-			currentTableCell.style.backgroundColor = "white";
-			currentTableCell.style.borderColor = "grey";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellcolor";
+	// 		currentTableCell.style.backgroundColor = "white";
+	// 		currentTableCell.style.borderColor = "grey";
 
-			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-			currentTableCell.className = "propertycellname";
+	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
+	// 		currentTableCell.className = "propertycellname";
 
-			currentTableCell.textContent = "Get Out of Jail Free Card";
-		}
+	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
+	// 	}
 
-		if (initiatorSideTable.lastChild) {
-			initiatorProperty.appendChild(initiatorSideTable);
-		} else {
-			initiatorProperty.textContent = initiator.name + " has no properties to trade.";
-		}
+	// 	if (initiatorSideTable.lastChild) {
+	// 		initiatorProperty.appendChild(initiatorSideTable);
+	// 	} else {
+	// 		initiatorProperty.textContent = initiator.name + " has no properties to trade.";
+	// 	}
 
-		if (recipientSideTable.lastChild) {
-			recipientProperty.appendChild(recipientSideTable);
-		} else {
-			recipientProperty.textContent = recipient.name + " has no properties to trade.";
-		}
+	// 	if (recipientSideTable.lastChild) {
+	// 		recipientProperty.appendChild(recipientSideTable);
+	// 	} else {
+	// 		recipientProperty.textContent = recipient.name + " has no properties to trade.";
+	// 	}
 
-		document.getElementById("trade-leftp-name").textContent = initiator.name;
+	// 	document.getElementById("trade-leftp-name").textContent = initiator.name;
 
-		currentName = document.getElementById("trade-rightp-name");
+	// 	currentName = document.getElementById("trade-rightp-name");
 
-		if (allowRecipientToBeChanged && pcount > 2) {
-			// Empty element.
-			while (currentName.lastChild) {
-				currentName.removeChild(currentName.lastChild);
-			}
+	// 	if (allowRecipientToBeChanged && pcount > 2) {
+	// 		// Empty element.
+	// 		while (currentName.lastChild) {
+	// 			currentName.removeChild(currentName.lastChild);
+	// 		}
 
-			nameSelect = currentName.appendChild(document.createElement("select"));
-			for (var i = 1; i <= pcount; i++) {
-				if (i === initiator.index) {
-					continue;
-				}
+	// 		nameSelect = currentName.appendChild(document.createElement("select"));
+	// 		for (var i = 1; i <= pcount; i++) {
+	// 			if (i === initiator.index) {
+	// 				continue;
+	// 			}
 
-				currentOption = nameSelect.appendChild(document.createElement("option"));
-				currentOption.value = i + "";
-				currentOption.style.color = player[i].color;
-				currentOption.textContent = player[i].name;
+	// 			currentOption = nameSelect.appendChild(document.createElement("option"));
+	// 			currentOption.value = i + "";
+	// 			currentOption.style.color = player[i].color;
+	// 			currentOption.textContent = player[i].name;
 
-				if (i === recipient.index) {
-					currentOption.selected = "selected";
-				}
-			}
+	// 			if (i === recipient.index) {
+	// 				currentOption.selected = "selected";
+	// 			}
+	// 		}
 
-			nameSelect.onchange = function() {
-				resetTrade(currentInitiator, player[parseInt(this.value, 10)], true);
-			};
+	// 		nameSelect.onchange = function() {
+	// 			resetTrade(currentInitiator, player[parseInt(this.value, 10)], true);
+	// 		};
 
-			nameSelect.title = "Select a player to trade with.";
-		} else {
-			currentName.textContent = recipient.name;
-		}
+	// 		nameSelect.title = "Select a player to trade with.";
+	// 	} else {
+	// 		currentName.textContent = recipient.name;
+	// 	}
 
-		document.getElementById("trade-leftp-money").value = "0";
-		document.getElementById("trade-rightp-money").value = "0";
+	// 	document.getElementById("trade-leftp-money").value = "0";
+	// 	document.getElementById("trade-rightp-money").value = "0";
 
-	};
+	// };
 
 	var readTrade = function() {
 		var initiator = currentInitiator;
@@ -1451,11 +1451,11 @@ function updateOwned() {
 	housetext = "";
 	var sq;
 
-	for (var i = 0; i < 40; i++) {
+	for (var i = 0; i < 24; i++) {
 		sq = square[i];
-		if (sq.groupNumber && sq.owner === 0) {
+		if (sq.owner === 0) {
 			$("#cell" + i + "owner").hide();
-		} else if (sq.groupNumber && sq.owner > 0) {
+		} else if (sq.owner > 0) {
 			var currentCellOwner = document.getElementById("cell" + i + "owner");
 
 			currentCellOwner.style.display = "block";
@@ -1464,23 +1464,23 @@ function updateOwned() {
 		}
 	}
 
-	for (var i = 0; i < 40; i++) {
+	for (var i = 0; i < 24; i++) {
 		sq = square[i];
 		if (sq.owner == turn) {
 
-			mortgagetext = "";
-			if (sq.mortgage) {
-				mortgagetext = "title='Mortgaged' style='color: grey;'";
-			}
+			// mortgagetext = "";
+			// if (sq.mortgage) {
+			// 	mortgagetext = "title='Mortgaged' style='color: grey;'";
+			// }
 
-			housetext = "";
-			if (sq.house >= 1 && sq.house <= 4) {
-				for (var x = 1; x <= sq.house; x++) {
-					housetext += "<img src='images/house.png' alt='' title='House' class='house' />";
-				}
-			} else if (sq.hotel) {
-				housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
-			}
+			// housetext = "";
+			// if (sq.house >= 1 && sq.house <= 4) {
+			// 	for (var x = 1; x <= sq.house; x++) {
+			// 		housetext += "<img src='images/house.png' alt='' title='House' class='house' />";
+			// 	}
+			// } else if (sq.hotel) {
+			// 	housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
+			// }
 
 			if (HTML === "") {
 				HTML += "<table>";
@@ -1489,9 +1489,9 @@ function updateOwned() {
 
 			HTML += "<tr class='property-cell-row'><td class='propertycellcheckbox'><input type='checkbox' id='propertycheckbox" + i + "' /></td><td class='propertycellcolor' style='background: " + sq.color + ";";
 
-			if (sq.groupNumber == 1 || sq.groupNumber == 2) {
-				HTML += " border: 1px solid grey; width: 18px;";
-			}
+			// if (sq.groupNumber == 1 || sq.groupNumber == 2) {
+			// 	HTML += " border: 1px solid grey; width: 18px;";
+			// }
 
 			HTML += "' onmouseover='showdeed(" + i + ");' onmouseout='hidedeed();'></td><td class='propertycellname' " + mortgagetext + ">" + sq.name + housetext + "</td></tr>";
 		}
@@ -1551,159 +1551,159 @@ function updateOwned() {
 function updateOption() {
 	$("#option").show();
 
-	var allGroupUninproved = true;
-	var allGroupUnmortgaged = true;
-	var checkedproperty = getCheckedProperty();
+	// var allGroupUninproved = true;
+	// var allGroupUnmortgaged = true;
+	// var checkedproperty = getCheckedProperty();
 
-	if (checkedproperty < 0 || checkedproperty >= 40) {
-		$("#buyhousebutton").hide();
-		$("#sellhousebutton").hide();
-		$("#mortgagebutton").hide();
+	// if (checkedproperty < 0 || checkedproperty >= 40) {
+	// 	$("#buyhousebutton").hide();
+	// 	$("#sellhousebutton").hide();
+	// 	$("#mortgagebutton").hide();
 
 
-		var housesum = 32;
-		var hotelsum = 12;
+	// 	var housesum = 32;
+	// 	var hotelsum = 12;
 
-		for (var i = 0; i < 40; i++) {
-			s = square[i];
-			if (s.hotel == 1)
-				hotelsum--;
-			else
-				housesum -= s.house;
-		}
+	// 	for (var i = 0; i < 40; i++) {
+	// 		s = square[i];
+	// 		if (s.hotel == 1)
+	// 			hotelsum--;
+	// 		else
+	// 			housesum -= s.house;
+	// 	}
 
-		$("#buildings").show();
-		document.getElementById("buildings").innerHTML = "<img src='images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
+	// 	$("#buildings").show();
+	// 	document.getElementById("buildings").innerHTML = "<img src='images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
 
-		return;
-	}
+	// 	return;
+	// }
 
-	$("#buildings").hide();
-	var sq = square[checkedproperty];
+	// $("#buildings").hide();
+	// var sq = square[checkedproperty];
 
-	buyhousebutton = document.getElementById("buyhousebutton");
-	sellhousebutton = document.getElementById("sellhousebutton");
+	// buyhousebutton = document.getElementById("buyhousebutton");
+	// sellhousebutton = document.getElementById("sellhousebutton");
 
-	$("#mortgagebutton").show();
-	document.getElementById("mortgagebutton").disabled = false;
+	// $("#mortgagebutton").show();
+	// document.getElementById("mortgagebutton").disabled = false;
 
-	if (sq.mortgage) {
-		document.getElementById("mortgagebutton").value = "Unmortgage ($" + Math.round(sq.price * 0.6) + ")";
-		document.getElementById("mortgagebutton").title = "Unmortgage " + sq.name + " for $" + Math.round(sq.price * 0.6) + ".";
-		$("#buyhousebutton").hide();
-		$("#sellhousebutton").hide();
+	// if (sq.mortgage) {
+	// 	document.getElementById("mortgagebutton").value = "Unmortgage ($" + Math.round(sq.price * 0.6) + ")";
+	// 	document.getElementById("mortgagebutton").title = "Unmortgage " + sq.name + " for $" + Math.round(sq.price * 0.6) + ".";
+	// 	$("#buyhousebutton").hide();
+	// 	$("#sellhousebutton").hide();
 
-		allGroupUnmortgaged = false;
-	} else {
-		document.getElementById("mortgagebutton").value = "Mortgage ($" + (sq.price * 0.5) + ")";
-		document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for $" + (sq.price * 0.5) + ".";
+	// 	allGroupUnmortgaged = false;
+	// } else {
+	// 	document.getElementById("mortgagebutton").value = "Mortgage ($" + (sq.price * 0.5) + ")";
+	// 	document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for $" + (sq.price * 0.5) + ".";
 
-		if (sq.groupNumber >= 3) {
-			$("#buyhousebutton").show();
-			$("#sellhousebutton").show();
-			buyhousebutton.disabled = false;
-			sellhousebutton.disabled = false;
+	// 	if (sq.groupNumber >= 3) {
+	// 		$("#buyhousebutton").show();
+	// 		$("#sellhousebutton").show();
+	// 		buyhousebutton.disabled = false;
+	// 		sellhousebutton.disabled = false;
 
-			buyhousebutton.value = "Buy house ($" + sq.houseprice + ")";
-			sellhousebutton.value = "Sell house ($" + (sq.houseprice * 0.5) + ")";
-			buyhousebutton.title = "Buy a house for $" + sq.houseprice;
-			sellhousebutton.title = "Sell a house for $" + (sq.houseprice * 0.5);
+	// 		buyhousebutton.value = "Buy house ($" + sq.houseprice + ")";
+	// 		sellhousebutton.value = "Sell house ($" + (sq.houseprice * 0.5) + ")";
+	// 		buyhousebutton.title = "Buy a house for $" + sq.houseprice;
+	// 		sellhousebutton.title = "Sell a house for $" + (sq.houseprice * 0.5);
 
-			if (sq.house == 4) {
-				buyhousebutton.value = "Buy hotel ($" + sq.houseprice + ")";
-				buyhousebutton.title = "Buy a hotel for $" + sq.houseprice;
-			}
-			if (sq.hotel == 1) {
-				$("#buyhousebutton").hide();
-				sellhousebutton.value = "Sell hotel ($" + (sq.houseprice * 0.5) + ")";
-				sellhousebutton.title = "Sell a hotel for $" + (sq.houseprice * 0.5);
-			}
+	// 		if (sq.house == 4) {
+	// 			buyhousebutton.value = "Buy hotel ($" + sq.houseprice + ")";
+	// 			buyhousebutton.title = "Buy a hotel for $" + sq.houseprice;
+	// 		}
+	// 		if (sq.hotel == 1) {
+	// 			$("#buyhousebutton").hide();
+	// 			sellhousebutton.value = "Sell hotel ($" + (sq.houseprice * 0.5) + ")";
+	// 			sellhousebutton.title = "Sell a hotel for $" + (sq.houseprice * 0.5);
+	// 		}
 
-			var maxhouse = 0;
-			var minhouse = 5;
+	// 		var maxhouse = 0;
+	// 		var minhouse = 5;
 
-			for (var j = 0; j < max; j++) {
+	// 		for (var j = 0; j < max; j++) {
 
-				if (square[currentSquare.group[j]].house > 0) {
-					allGroupUninproved = false;
-					break;
-				}
-			}
+	// 			if (square[currentSquare.group[j]].house > 0) {
+	// 				allGroupUninproved = false;
+	// 				break;
+	// 			}
+	// 		}
 
-			var max = sq.group.length;
-			for (var i = 0; i < max; i++) {
-				s = square[sq.group[i]];
+	// 		var max = sq.group.length;
+	// 		for (var i = 0; i < max; i++) {
+	// 			s = square[sq.group[i]];
 
-				if (s.owner !== sq.owner) {
-					buyhousebutton.disabled = true;
-					sellhousebutton.disabled = true;
-					buyhousebutton.title = "Before you can buy a house, you must own all the properties of this color-group.";
-				} else {
+	// 			if (s.owner !== sq.owner) {
+	// 				buyhousebutton.disabled = true;
+	// 				sellhousebutton.disabled = true;
+	// 				buyhousebutton.title = "Before you can buy a house, you must own all the properties of this color-group.";
+	// 			} else {
 
-					if (s.house > maxhouse) {
-						maxhouse = s.house;
-					}
+	// 				if (s.house > maxhouse) {
+	// 					maxhouse = s.house;
+	// 				}
 
-					if (s.house < minhouse) {
-						minhouse = s.house;
-					}
+	// 				if (s.house < minhouse) {
+	// 					minhouse = s.house;
+	// 				}
 
-					if (s.house > 0) {
-						allGroupUninproved = false;
-					}
+	// 				if (s.house > 0) {
+	// 					allGroupUninproved = false;
+	// 				}
 
-					if (s.mortgage) {
-						allGroupUnmortgaged = false;
-					}
-				}
-			}
+	// 				if (s.mortgage) {
+	// 					allGroupUnmortgaged = false;
+	// 				}
+	// 			}
+	// 		}
 
-			if (!allGroupUnmortgaged) {
-				buyhousebutton.disabled = true;
-				buyhousebutton.title = "Before you can buy a house, you must unmortgage all the properties of this color-group.";
-			}
+	// 		if (!allGroupUnmortgaged) {
+	// 			buyhousebutton.disabled = true;
+	// 			buyhousebutton.title = "Before you can buy a house, you must unmortgage all the properties of this color-group.";
+	// 		}
 
-			// Force even building
-			if (sq.house > minhouse) {
-				buyhousebutton.disabled = true;
+	// 		// Force even building
+	// 		if (sq.house > minhouse) {
+	// 			buyhousebutton.disabled = true;
 
-				if (sq.house == 1) {
-					buyhousebutton.title = "Before you can buy another house, the other properties of this color-group must all have one house.";
-				} else if (sq.house == 4) {
-					buyhousebutton.title = "Before you can buy a hotel, the other properties of this color-group must all have 4 houses.";
-				} else {
-					buyhousebutton.title = "Before you can buy a house, the other properties of this color-group must all have " + sq.house + " houses.";
-				}
-			}
-			if (sq.house < maxhouse) {
-				sellhousebutton.disabled = true;
+	// 			if (sq.house == 1) {
+	// 				buyhousebutton.title = "Before you can buy another house, the other properties of this color-group must all have one house.";
+	// 			} else if (sq.house == 4) {
+	// 				buyhousebutton.title = "Before you can buy a hotel, the other properties of this color-group must all have 4 houses.";
+	// 			} else {
+	// 				buyhousebutton.title = "Before you can buy a house, the other properties of this color-group must all have " + sq.house + " houses.";
+	// 			}
+	// 		}
+	// 		if (sq.house < maxhouse) {
+	// 			sellhousebutton.disabled = true;
 
-				if (sq.house == 1) {
-					sellhousebutton.title = "Before you can sell house, the other properties of this color-group must all have one house.";
-				} else {
-					sellhousebutton.title = "Before you can sell a house, the other properties of this color-group must all have " + sq.house + " houses.";
-				}
-			}
+	// 			if (sq.house == 1) {
+	// 				sellhousebutton.title = "Before you can sell house, the other properties of this color-group must all have one house.";
+	// 			} else {
+	// 				sellhousebutton.title = "Before you can sell a house, the other properties of this color-group must all have " + sq.house + " houses.";
+	// 			}
+	// 		}
 
-			if (sq.house === 0 && sq.hotel === 0) {
-				$("#sellhousebutton").hide();
+	// 		if (sq.house === 0 && sq.hotel === 0) {
+	// 			$("#sellhousebutton").hide();
 
-			} else {
-				$("#mortgagebutton").hide();
+	// 		} else {
+	// 			$("#mortgagebutton").hide();
 
-			}
+	// 		}
 
-			// Before a property can be mortgaged or sold, all the properties of its color-group must unimproved.
-			if (!allGroupUninproved) {
-				document.getElementById("mortgagebutton").title = "Before a property can be mortgaged, all the properties of its color-group must unimproved.";
-				document.getElementById("mortgagebutton").disabled = true;
-			}
+	// 		// Before a property can be mortgaged or sold, all the properties of its color-group must unimproved.
+	// 		if (!allGroupUninproved) {
+	// 			document.getElementById("mortgagebutton").title = "Before a property can be mortgaged, all the properties of its color-group must unimproved.";
+	// 			document.getElementById("mortgagebutton").disabled = true;
+	// 		}
 
-		} else {
-			$("#buyhousebutton").hide();
-			$("#sellhousebutton").hide();
-		}
-	}
+	// 	} else {
+	// 		$("#buyhousebutton").hide();
+	// 		$("#sellhousebutton").hide();
+	// 	}
+	// }
 }
 
 function chanceCommunityChest() {
@@ -1738,7 +1738,7 @@ function chanceCommunityChest() {
 		}
 
 		popup("<img src='images/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
-			chanceAction(chanceIndex);
+			//chanceAction(chanceIndex);
 		});
 
 		chanceCards.index++;
@@ -2711,32 +2711,32 @@ window.onload = function() {
 		player[i].index = i;
 	}
 
-	var groupPropertyArray = [];
-	var groupNumber;
+	// var groupPropertyArray = [];
+	// var groupNumber;
 
-	for (var i = 0; i < 40; i++) {
-		groupNumber = square[i].groupNumber;
+	// for (var i = 0; i < 40; i++) {
+	// 	groupNumber = square[i].groupNumber;
 
-		if (groupNumber > 0) {
-			if (!groupPropertyArray[groupNumber]) {
-				groupPropertyArray[groupNumber] = [];
-			}
+	// 	if (groupNumber > 0) {
+	// 		if (!groupPropertyArray[groupNumber]) {
+	// 			groupPropertyArray[groupNumber] = [];
+	// 		}
 
-			groupPropertyArray[groupNumber].push(i);
-		}
-	}
+	// 		groupPropertyArray[groupNumber].push(i);
+	// 	}
+	// }
 
-	for (var i = 0; i < 40; i++) {
-		groupNumber = square[i].groupNumber;
+	for (var i = 0; i < 24; i++) {
+		// groupNumber = square[i].groupNumber;
 
-		if (groupNumber > 0) {
-			square[i].group = groupPropertyArray[groupNumber];
-		}
+		// if (groupNumber > 0) {
+		// 	square[i].group = groupPropertyArray[groupNumber];
+		// }
 
 		square[i].index = i;
 	}
 
-	AITest.count = 0;
+	// AITest.count = 0;
 
 	player[1].human = true;
 	player[0].name = "the bank";
@@ -2804,11 +2804,11 @@ window.onload = function() {
 		currentCellName.className = "cell-name";
 		currentCellName.textContent = s.name;
 
-		if (square[i].groupNumber) {
+		
 			currentCellOwner = currentCellAnchor.appendChild(document.createElement("div"));
 			currentCellOwner.id = "cell" + i + "owner";
 			currentCellOwner.className = "cell-owner";
-		}
+		
 
 		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
 		document.getElementById("enlarge" + i + "name").textContent = s.name;

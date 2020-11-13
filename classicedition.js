@@ -4,7 +4,7 @@ function Square(name) {
 	this.name = name;
 	this.level = 0;
 	this.price = reward[this.level];
-	this.pricetext = toString(this.price);
+	this.pricetext = this.price;
 	this.color = color[this.level];
 	this.owner = 0;
 }
@@ -15,7 +15,7 @@ function Card(text, action) {
 }
 
 function corrections() {
-	document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
+	//document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
 
 	// Add images to enlarges.
 	document.getElementById("enlarge5token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
@@ -50,30 +50,38 @@ function citytax() {
 
 var square = [];
 
-square[0] = new Square("GO", "COLLECT $200 SALARY AS YOU PASS.", "#FFFFFF");
-square[1] = new Square("Algo2");
-square[2] = new Square("Community Chest", "FOLLOW INSTRUCTIONS ON TOP CARD", "#FFFFFF");
-square[3] = new Square("Baltic Avenue", "$60", "#8B4513", 60, 3, 4, 20, 60, 180, 320, 450);
-square[4] = new Square("City Tax", "Pay $200", "#FFFFFF");
-square[5] = new Square("Reading Railroad", "$200", "#FFFFFF", 200, 1);
-square[6] = new Square("Oriental Avenue", "$100", "#87CEEB", 100, 4, 6, 30, 90, 270, 400, 550);
-square[7] = new Square("Chance", "FOLLOW INSTRUCTIONS ON TOP CARD", "#FFFFFF");
-square[8] = new Square("Vermont Avenue", "$100", "#87CEEB", 100, 4, 6, 30, 90, 270, 400, 550);
-square[9] = new Square("Connecticut Avenue", "$120", "#87CEEB", 120, 4, 8, 40, 100, 300, 450, 600);
-square[10] = new Square("Just Visiting", "", "#FFFFFF");
-square[11] = new Square("St. Charles Place", "$140", "#FF0080", 140, 5, 10, 50, 150, 450, 625, 750);
-square[12] = new Square("Electric Company", "$150", "#FFFFFF", 150, 2);
-square[13] = new Square("States Avenue", "$140", "#FF0080", 140, 5, 10, 50, 150, 450, 625, 750);
-square[14] = new Square("Virginia Avenue", "$160", "#FF0080", 160, 5, 12, 60, 180, 500, 700, 900);
-square[15] = new Square("Pennsylvania Railroad", "$200", "#FFFFFF", 200, 1);
-square[16] = new Square("St. James Place", "$180", "#FFA500", 180, 6, 14, 70, 200, 550, 750, 950);
-square[17] = new Square("Community Chest", "FOLLOW INSTRUCTIONS ON TOP CARD", "#FFFFFF");
-square[18] = new Square("Tennessee Avenue", "$180", "#FFA500", 180, 6, 14, 70, 200, 550, 750, 950);
-square[19] = new Square("New York Avenue", "$200", "#FFA500", 200, 6, 16, 80, 220, 600, 800, 1000);
-square[20] = new Square("Free Parking", "", "#FFFFFF");
-// square[21] = new Square("Kentucky Avenue", "$220", "#FF0000", 220, 7, 18, 90, 250, 700, 875, 1050);
-// square[22] = new Square("Chance", "FOLLOW INSTRUCTIONS ON TOP CARD", "#FFFFFF");
-// square[23] = new Square("Indiana Avenue", "$220", "#FF0000", 220, 7, 18, 90, 250, 700, 875, 1050);
+square[0] = new Square("GO");
+square[0].color="#000000";
+square[0].pricetext="Collect 2 points as you pass";
+square[1] = new Square("Algo1");
+square[2] = new Square("Algo2");
+square[3] = new Square("Algo3");
+square[4] = new Square("Algo4");
+square[6] = new Square("Free Hit");
+square[6].pricetext="use the card you get here to attempt a question without any penalty";
+square[6].color="#000000";
+square[5] = new Square("Algo5");
+square[7] = new Square("Algo6");
+square[8] = new Square("Algo7");
+square[9] = new Square("Algo8");
+square[10] = new Square("Algo1");
+square[11] = new Square("Algo1");
+square[12] = new Square("Block Square");
+square[12].color="#000000";
+square[12].pricetext="Block one attempt at solving a card held by you";
+square[13] = new Square("Algo1");
+square[14] = new Square("Algo1");
+square[15] = new Square("Algo1");
+square[16] = new Square("Algo1");
+square[17] = new Square("Algo1");
+square[18] = new Square("Jump Levels");
+square[18].color="#000000";
+square[18].pricetext="Use this to solve level of your choice for card that you land on";
+square[19] = new Square("Algo1");
+square[20] = new Square("Algo1");
+square[21] = new Square("Algo1");
+square[22] = new Square("Algo1");
+square[23] = new Square("Algo1");
 // square[24] = new Square("Illinois Avenue", "$240", "#FF0000", 240, 7, 20, 100, 300, 750, 925, 1100);
 // square[25] = new Square("B&O Railroad", "$200", "#FFFFFF", 200, 1);
 // square[26] = new Square("Atlantic Avenue", "$260", "#FFFF00", 260, 8, 22, 110, 330, 800, 975, 1150);
