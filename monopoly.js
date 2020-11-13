@@ -2622,13 +2622,13 @@ function setup() {
 
 		p.color = document.getElementById("player" + i + "color").value.toLowerCase();
 
-		if (document.getElementById("player" + i + "ai").value === "0") {
+		// if (document.getElementById("player" + i + "ai").value === "0") {
 			p.name = document.getElementById("player" + i + "name").value;
 			p.human = true;
-		} else if (document.getElementById("player" + i + "ai").value === "1") {
-			p.human = false;
-			p.AI = new AITest(p);
-		}
+		// } else if (document.getElementById("player" + i + "ai").value === "1") {
+		// 	p.human = false;
+		// 	p.AI = new AITest(p);
+		// }
 	}
 
 	$("#board, #moneybar").show();
