@@ -2174,43 +2174,44 @@ function showdeed(property) {
 	$("#deed").show();
 
 	$("#deed-normal").hide();
-	$("#deed-mortgaged").hide();
-	$("#deed-special").hide();
+	// $("#deed-mortgaged").hide();
+	// $("#deed-special").hide();
 
-	if (sq.mortgage) {
-		$("#deed-mortgaged").show();
-		document.getElementById("deed-mortgaged-name").textContent = sq.name;
-		document.getElementById("deed-mortgaged-mortgage").textContent = (sq.price / 2);
+	// if (sq.mortgage) {
+	// 	$("#deed-mortgaged").show();
+	// 	document.getElementById("deed-mortgaged-name").textContent = sq.name;
+	// 	document.getElementById("deed-mortgaged-mortgage").textContent = (sq.price / 2);
 
-	} else {
+	// }
+	//  else {
 
-		if (sq.groupNumber >= 3) {
+		// if (sq.groupNumber >= 3) {
 			$("#deed-normal").show();
 			document.getElementById("deed-header").style.backgroundColor = sq.color;
 			document.getElementById("deed-name").textContent = sq.name;
-			document.getElementById("deed-baserent").textContent = sq.baserent;
-			document.getElementById("deed-rent1").textContent = sq.rent1;
-			document.getElementById("deed-rent2").textContent = sq.rent2;
-			document.getElementById("deed-rent3").textContent = sq.rent3;
-			document.getElementById("deed-rent4").textContent = sq.rent4;
-			document.getElementById("deed-rent5").textContent = sq.rent5;
-			document.getElementById("deed-mortgage").textContent = (sq.price / 2);
-			document.getElementById("deed-houseprice").textContent = sq.houseprice;
-			document.getElementById("deed-hotelprice").textContent = sq.houseprice;
+			// document.getElementById("deed-baserent").textContent = sq.baserent;
+			// document.getElementById("deed-rent1").textContent = sq.rent1;
+			// document.getElementById("deed-rent2").textContent = sq.rent2;
+			// document.getElementById("deed-rent3").textContent = sq.rent3;
+			// document.getElementById("deed-rent4").textContent = sq.rent4;
+			// document.getElementById("deed-rent5").textContent = sq.rent5;
+			// document.getElementById("deed-mortgage").textContent = (sq.price / 2);
+			// document.getElementById("deed-houseprice").textContent = sq.houseprice;
+			// document.getElementById("deed-hotelprice").textContent = sq.houseprice;
 
-		} else if (sq.groupNumber == 2) {
-			$("#deed-special").show();
-			document.getElementById("deed-special-name").textContent = sq.name;
-			document.getElementById("deed-special-text").innerHTML = utiltext();
-			document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
+		// } else if (sq.groupNumber == 2) {
+		// 	$("#deed-special").show();
+		// 	document.getElementById("deed-special-name").textContent = sq.name;
+		// 	document.getElementById("deed-special-text").innerHTML = utiltext();
+		// 	document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
 
-		} else if (sq.groupNumber == 1) {
-			$("#deed-special").show();
-			document.getElementById("deed-special-name").textContent = sq.name;
-			document.getElementById("deed-special-text").innerHTML = transtext();
-			document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
-		}
-	}
+		// } else if (sq.groupNumber == 1) {
+		// 	$("#deed-special").show();
+		// 	document.getElementById("deed-special-name").textContent = sq.name;
+		// 	document.getElementById("deed-special-text").innerHTML = transtext();
+		// 	document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
+		// }
+	
 }
 
 function hidedeed() {
