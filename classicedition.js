@@ -1,5 +1,6 @@
 var color = ["#00FF00", "#FFFF00", "#FF0000", "#000000"];
 var reward = [4, 8, 12];
+var stages = ["Easy", "Medium", "Hard", "Completed"]
 function Square(name) {
 	this.name = name;
 	this.level = 0;
@@ -7,6 +8,21 @@ function Square(name) {
 	this.pricetext = this.price;
 	this.color = color[this.level];
 	this.owner = 0;
+
+	this.updateSquare = function()
+	{
+		if(this.level === 3)
+		{
+			this.pricetext = "All available levels of this card has been solved.";
+			this.color = color[this.level];
+		}
+		else
+		{
+			this.price = reward[this.level];
+			this.pricetext = this.price;
+			this.color = color[this.level];
+		}
+	};
 }
 
 function Card(text, action) {

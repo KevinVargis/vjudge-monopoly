@@ -514,6 +514,12 @@ td {
 	font-size: 16px;
 }
 
+#our-deed
+{
+	text-align: left;
+
+}
+
 #enlarge-wrap {
 	border: none;
 	z-index: 0;

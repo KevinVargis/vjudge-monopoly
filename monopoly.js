@@ -602,51 +602,51 @@ function Game() {
 
 	// };
 
-	var readTrade = function() {
-		var initiator = currentInitiator;
-		var recipient = currentRecipient;
-		var property = new Array(40);
-		var money;
-		var communityChestJailCard;
-		var chanceJailCard;
+	// var readTrade = function() {
+	// 	var initiator = currentInitiator;
+	// 	var recipient = currentRecipient;
+	// 	var property = new Array(40);
+	// 	var money;
+	// 	var communityChestJailCard;
+	// 	var chanceJailCard;
 
-		for (var i = 0; i < 40; i++) {
+	// 	for (var i = 0; i < 40; i++) {
 
-			if (document.getElementById("tradeleftcheckbox" + i) && document.getElementById("tradeleftcheckbox" + i).checked) {
-				property[i] = 1;
-			} else if (document.getElementById("traderightcheckbox" + i) && document.getElementById("traderightcheckbox" + i).checked) {
-				property[i] = -1;
-			} else {
-				property[i] = 0;
-			}
-		}
+	// 		if (document.getElementById("tradeleftcheckbox" + i) && document.getElementById("tradeleftcheckbox" + i).checked) {
+	// 			property[i] = 1;
+	// 		} else if (document.getElementById("traderightcheckbox" + i) && document.getElementById("traderightcheckbox" + i).checked) {
+	// 			property[i] = -1;
+	// 		} else {
+	// 			property[i] = 0;
+	// 		}
+	// 	}
 
-		if (document.getElementById("tradeleftcheckbox40") && document.getElementById("tradeleftcheckbox40").checked) {
-			communityChestJailCard = 1;
-		} else if (document.getElementById("traderightcheckbox40") && document.getElementById("traderightcheckbox40").checked) {
-			communityChestJailCard = -1;
-		} else {
-			communityChestJailCard = 0;
-		}
+	// 	if (document.getElementById("tradeleftcheckbox40") && document.getElementById("tradeleftcheckbox40").checked) {
+	// 		communityChestJailCard = 1;
+	// 	} else if (document.getElementById("traderightcheckbox40") && document.getElementById("traderightcheckbox40").checked) {
+	// 		communityChestJailCard = -1;
+	// 	} else {
+	// 		communityChestJailCard = 0;
+	// 	}
 
-		if (document.getElementById("tradeleftcheckbox41") && document.getElementById("tradeleftcheckbox41").checked) {
-			chanceJailCard = 1;
-		} else if (document.getElementById("traderightcheckbox41") && document.getElementById("traderightcheckbox41").checked) {
-			chanceJailCard = -1;
-		} else {
-			chanceJailCard = 0;
-		}
+	// 	if (document.getElementById("tradeleftcheckbox41") && document.getElementById("tradeleftcheckbox41").checked) {
+	// 		chanceJailCard = 1;
+	// 	} else if (document.getElementById("traderightcheckbox41") && document.getElementById("traderightcheckbox41").checked) {
+	// 		chanceJailCard = -1;
+	// 	} else {
+	// 		chanceJailCard = 0;
+	// 	}
 
-		money = parseInt(document.getElementById("trade-leftp-money").value, 10) || 0;
-		money -= parseInt(document.getElementById("trade-rightp-money").value, 10) || 0;
+	// 	money = parseInt(document.getElementById("trade-leftp-money").value, 10) || 0;
+	// 	money -= parseInt(document.getElementById("trade-rightp-money").value, 10) || 0;
 
-		var trade = new Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard);
+	// 	// var trade = new Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard);
 
-		return trade;
-	};
+	// 	return trade;
+	// };
 
 	var writeTrade = function(tradeObj) {
-		resetTrade(tradeObj.getInitiator(), tradeObj.getRecipient(), false);
+		// resetTrade(tradeObj.getInitiator(), tradeObj.getRecipient(), false);
 
 		for (var i = 0; i < 40; i++) {
 
@@ -715,8 +715,8 @@ function Game() {
 		$("#rejecttradebutton").hide();
 
 		if (tradeObj instanceof Trade) {
-			writeTrade(tradeObj);
-			this.proposeTrade();
+			// writeTrade(tradeObj);
+			// this.proposeTrade();
 		} else {
 			var initiator = player[turn];
 			var recipient = turn === 1 ? player[2] : player[1];
@@ -724,7 +724,7 @@ function Game() {
 			currentInitiator = initiator;
 			currentRecipient = recipient;
 
-			resetTrade(initiator, recipient, true);
+			// resetTrade(initiator, recipient, true);
 		}
 	};
 
@@ -763,7 +763,7 @@ function Game() {
 		if (tradeObj) {
 			showAlerts = false;
 		} else {
-			tradeObj = readTrade();
+			// tradeObj = readTrade();
 		}
 
 		money = tradeObj.getMoney();
@@ -875,7 +875,7 @@ function Game() {
 			return false;
 		}
 
-		var tradeObj = readTrade();
+		// var tradeObj = readTrade();
 		var money = tradeObj.getMoney();
 		var initiator = tradeObj.getInitiator();
 		var recipient = tradeObj.getRecipient();
@@ -1106,12 +1106,11 @@ function Game() {
 
 var game;
 
-
 function Player(name, color) {
 	this.name = name;
 	this.color = color;
 	this.position = 0;
-	this.money = 1500;
+	this.money = 60;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
@@ -1146,33 +1145,34 @@ function Player(name, color) {
 // property: array of integers, length: 40
 // communityChestJailCard: integer, 1 means offered, -1 means requested, 0 means neither
 // chanceJailCard: integer, 1 means offered, -1 means requested, 0 means neither
-function Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard) {
-	// For each property and get out of jail free cards, 1 means offered, -1 means requested, 0 means neither.
 
-	this.getInitiator = function() {
-		return initiator;
-	};
+// function Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard) {
+// 	// For each property and get out of jail free cards, 1 means offered, -1 means requested, 0 means neither.
 
-	this.getRecipient = function() {
-		return recipient;
-	};
+// 	this.getInitiator = function() {
+// 		return initiator;
+// 	};
 
-	this.getProperty = function(index) {
-		return property[index];
-	};
+// 	this.getRecipient = function() {
+// 		return recipient;
+// 	};
 
-	this.getMoney = function() {
-		return money;
-	};
+// 	this.getProperty = function(index) {
+// 		return property[index];
+// 	};
 
-	this.getCommunityChestJailCard = function() {
-		return communityChestJailCard;
-	};
+// 	this.getMoney = function() {
+// 		return money;
+// 	};
 
-	this.getChanceJailCard = function() {
-		return chanceJailCard;
-	};
-}
+// 	this.getCommunityChestJailCard = function() {
+// 		return communityChestJailCard;
+// 	};
+
+// 	this.getChanceJailCard = function() {
+// 		return chanceJailCard;
+// 	};
+// }
 
 var player = [];
 var pcount;
@@ -1365,7 +1365,7 @@ function updatePosition() {
 function updateMoney() {
 	var p = player[turn];
 
-	document.getElementById("pmoney").innerHTML = "$" + p.money;
+	document.getElementById("pmoney").innerHTML = p.money;
 	$(".money-bar-row").hide();
 
 	for (var i = 1; i <= pcount; i++) {
@@ -2088,7 +2088,6 @@ function sellHouse(index) {
 }
 
 function showStats() {
-	console.log("hai");
 	var HTML, sq, p;
 	var mortgagetext,
 	housetext;
@@ -2125,7 +2124,7 @@ function showStats() {
 					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
 				}
 
-				HTML += "<tr><td class='statscellcolor' style='background: " + sq.color + ";";
+				HTML += "<tr><td class='statscellcolor' style='background: " + color[sq.level-1] + ";";
 
 				if (sq.groupNumber == 1 || sq.groupNumber == 2) {
 					HTML += " border: 1px solid grey;";
@@ -2153,7 +2152,7 @@ function showStats() {
 		}
 
 		if (!write) {
-			HTML += p.name + " dosen't have any properties.";
+			HTML += p.name + " dosen't have any cards.";
 		} else {
 			HTML += "</table>";
 		}
@@ -2187,8 +2186,11 @@ function showdeed(property) {
 
 		// if (sq.groupNumber >= 3) {
 			$("#deed-normal").show();
-			document.getElementById("deed-header").style.backgroundColor = sq.color;
+			document.getElementById("deed-header").style.backgroundColor = color[sq.level-1];
 			document.getElementById("deed-name").textContent = sq.name;
+			document.getElementById("difficulty-level").textContent = stages[sq.level-1];
+			document.getElementById("deed-points").textContent = reward[sq.level-1];
+			
 			// document.getElementById("deed-baserent").textContent = sq.baserent;
 			// document.getElementById("deed-rent1").textContent = sq.rent1;
 			// document.getElementById("deed-rent2").textContent = sq.rent2;
@@ -2223,20 +2225,41 @@ function buy() {
 	var property = square[p.position];
 	var cost = property.price;
 
-	if (p.money >= cost) {
-		p.pay(cost, 0);
+	// var result = Math.floor(Math.random() * 2);
+	var result = 1;
 
+	if(result === 1)
+	{
+		if(property.owner)
+		{
+			var temp = player[property.owner];
+			temp.money -= reward[property.level-1];
+			addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+		}
+		addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
+		p.money += reward[property.level];
+		property.level++;
+		property.updateSquare();
 		property.owner = turn;
-		updateMoney();
-		addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
-
-		updateOwned();
-
-		$("#landed").hide();
-
-	} else {
-		popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
+		
 	}
+	updateMoney();
+	updateOwned();
+	game.next();
+	// if (p.money >= cost) {
+	// 	p.pay(cost, 0);
+
+	// 	property.owner = turn;
+	// 	updateMoney();
+	// 	addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
+
+	// 	updateOwned();
+
+	// 	$("#landed").hide();
+
+	// } else {
+	// 	popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
+	// }
 }
 
 function mortgage(index) {
@@ -2299,7 +2322,7 @@ function land(increasedRent) {
 	addAlert(p.name + " landed on " + s.name + ".");
 
 	// Allow player to buy the property on which he landed.
-	if (s.price !== 0 && s.owner === 0) {
+	if (s.owner === 0) {
 
 		// if (!p.human) {
 
@@ -2315,108 +2338,109 @@ function land(increasedRent) {
 	}
 
 	// Collect rent
-	if (s.owner !== 0 && s.owner != turn && !s.mortgage) {
-		var groupowned = true;
+	if (s.owner !== 0 && s.owner != turn) 
+	{
 		var rent;
 
 		// Railroads
-		if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
-			if (increasedRent) {
-				rent = 25;
-			} else {
-				rent = 12.5;
-			}
+		// if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
+		// 	if (increasedRent) {
+		// 		rent = 25;
+		// 	} else {
+		// 		rent = 12.5;
+		// 	}
 
-			if (s.owner == square[5].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[15].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[25].owner) {
-				rent *= 2;
-			}
-			if (s.owner == square[35].owner) {
-				rent *= 2;
-			}
+		// 	if (s.owner == square[5].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[15].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[25].owner) {
+		// 		rent *= 2;
+		// 	}
+		// 	if (s.owner == square[35].owner) {
+		// 		rent *= 2;
+		// 	}
 
-		} else if (p.position === 12) {
-			if (increasedRent || square[28].owner == s.owner) {
-				rent = (die1 + die2) * 10;
-			} else {
-				rent = (die1 + die2) * 4;
-			}
+		// } else if (p.position === 12) {
+		// 	if (increasedRent || square[28].owner == s.owner) {
+		// 		rent = (die1 + die2) * 10;
+		// 	} else {
+		// 		rent = (die1 + die2) * 4;
+		// 	}
 
-		} else if (p.position === 28) {
-			if (increasedRent || square[12].owner == s.owner) {
-				rent = (die1 + die2) * 10;
-			} else {
-				rent = (die1 + die2) * 4;
-			}
+		// } else if (p.position === 28) {
+		// 	if (increasedRent || square[12].owner == s.owner) {
+		// 		rent = (die1 + die2) * 10;
+		// 	} else {
+		// 		rent = (die1 + die2) * 4;
+		// 	}
 
-		} else {
+		// } else {
 
-			for (var i = 0; i < 40; i++) {
-				sq = square[i];
-				if (sq.groupNumber == s.groupNumber && sq.owner != s.owner) {
-					groupowned = false;
-				}
-			}
+		// 	for (var i = 0; i < 40; i++) {
+		// 		sq = square[i];
+		// 		if (sq.groupNumber == s.groupNumber && sq.owner != s.owner) {
+		// 			groupowned = false;
+		// 		}
+		// 	}
 
-			if (!groupowned) {
-				rent = s.baserent;
-			} else {
-				if (s.house === 0) {
-					rent = s.baserent * 2;
-				} else {
-					rent = s["rent" + s.house];
-				}
-			}
-		}
+		// 	if (!groupowned) {
+		// 		rent = s.baserent;    
+		// 	} else {
+		// 		if (s.house === 0) {
+		// 			rent = s.baserent * 2;
+		// 		} else {
+		// 			rent = s["rent" + s.house];
+		// 		}
+		// 	}
+		// }
 
 		addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
 		p.pay(rent, s.owner);
 		player[s.owner].money += rent;
 
 		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected $" + rent + " rent.";
-	} else if (s.owner > 0 && s.owner != turn && s.mortgage) {
-		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
-	}
+	} 
+	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
+	// 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
+	// }
 
 	// City Tax
-	if (p.position === 4) {
-		citytax();
-	}
+	// if (p.position === 4) {
+	// 	citytax();
+	// }
 
 	// Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.
-	if (p.position === 30) {
-		updateMoney();
-		updatePosition();
+	// if (p.position === 30) {
+	// 	updateMoney();
+	// 	updatePosition();
 
-		if (p.human) {
-			popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", gotojail);
-		} else {
-			gotojail();
-		}
+	// 	if (p.human) {
+	// 		popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", gotojail);
+	// 	} else {
+	// 		gotojail();
+	// 	}
 
-		return;
-	}
+	// 	return;
+	// }
 
-	// Luxury Tax
-	if (p.position === 38) {
-		luxurytax();
-	}
+	// // Luxury Tax
+	// if (p.position === 38) {
+	// 	luxurytax();
+	// }
 
 	updateMoney();
 	updatePosition();
 	updateOwned();
 
-	if (!p.human) {
-		popup(p.AI.alertList, chanceCommunityChest);
-		p.AI.alertList = "";
-	} else {
-		chanceCommunityChest();
-	}
+	// if (!p.human) {
+	// 	popup(p.AI.alertList, chanceCommunityChest);
+	// 	p.AI.alertList = "";
+	// } else {
+	// 	chanceCommunityChest();
+	// }
 }
 
 function roll() {
@@ -2811,7 +2835,7 @@ window.onload = function() {
 			currentCellOwner.className = "cell-owner";
 		
 
-		document.getElementById("enlarge" + i + "color").style.backgroundColor = s.color;
+		document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
 		document.getElementById("enlarge" + i + "name").textContent = s.name;
 		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
 	}
@@ -2839,6 +2863,17 @@ window.onload = function() {
 	var drag, dragX, dragY, dragObj, dragTop, dragLeft;
 
 	$(".cell-position-holder, #jail").on("mouseover", function(){
+
+		// document.getElementById(this.enlargeId + "color").style.backgroundColor = color[s.level];
+		// document.getElementById(this.enlargeId + "name").textContent = s.name;
+		// document.getElementById(this.enlargeId + "price").textContent = s.pricetext;
+		for (var i = 0; i < 24; i++)
+		{
+			var s = square[i];
+			document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
+			document.getElementById("enlarge" + i + "name").textContent = s.name;
+			document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
+		}	
 		$("#" + this.enlargeId).show();
 
 	}).on("mouseout", function() {
