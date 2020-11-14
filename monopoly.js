@@ -12,6 +12,8 @@ function Game() {
 	this.rollDice = function() {
 		die1 = Math.floor(Math.random() * 6) + 1;
 		die2 = Math.floor(Math.random() * 6) + 1;
+		// die1=1;
+		// die2=1;
 		areDiceRolled = true;
 	};
 
@@ -1124,8 +1126,10 @@ var game;
 function Player(name, color) {
 	this.name = name;
 	this.color = color;
+	this.freehit=0;
+	this.usefreehit=0;
 	this.position = 0;
-	this.money = 1;
+	this.money = 60;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
@@ -1353,16 +1357,16 @@ function updatePosition() {
 		}
 	}
 
-	for (var i = 1; i < turn; i++) {
-		if (player[i].jail) {
-			document.getElementById("jailpositionholder").innerHTML += "<div class='cell-position' title='" + player[i].name + "' style='background-color: " + player[i].color + "; left: " + left + "px; top: " + top + "px;'></div>";
-			if (left === 36) {
-				left = 0;
-				top = 41;
-			} else
-				left += 12;
-		}
-	}
+	// for (var i = 1; i < turn; i++) {
+	// 	if (player[i].jail) {
+	// 		document.getElementById("jailpositionholder").innerHTML += "<div class='cell-position' title='" + player[i].name + "' style='background-color: " + player[i].color + "; left: " + left + "px; top: " + top + "px;'></div>";
+	// 		if (left === 36) {
+	// 			left = 0;
+	// 			top = 41;
+	// 		} else
+	// 			left += 12;
+	// 	}
+	// }
 
 	p = player[turn];
 
@@ -1555,32 +1559,32 @@ function updateOwned() {
 		HTML += "</table>";
 	}
 
-	document.getElementById("owned").innerHTML = HTML;
+	//document.getElementById("owned").innerHTML = HTML;
 
 	// Select previously selected property.
-	if (checkedproperty > -1 && document.getElementById("propertycheckbox" + checkedproperty)) {
-		document.getElementById("propertycheckbox" + checkedproperty).checked = true;
-	} else if (firstproperty > -1) {
-		document.getElementById("propertycheckbox" + firstproperty).checked = true;
-	}
-	$(".property-cell-row").click(function() {
-		var row = this;
+	// if (checkedproperty > -1 && document.getElementById("propertycheckbox" + checkedproperty)) {
+	// 	document.getElementById("propertycheckbox" + checkedproperty).checked = true;
+	// } else if (firstproperty > -1) {
+	// 	document.getElementById("propertycheckbox" + firstproperty).checked = true;
+	// }
+	// $(".property-cell-row").click(function() {
+	// 	var row = this;
 
-		// Toggle check the current checkbox.
-		$(this).find(".propertycellcheckbox > input").prop("checked", function(index, val) {
-			return !val;
-		});
+	// 	// Toggle check the current checkbox.
+	// 	$(this).find(".propertycellcheckbox > input").prop("checked", function(index, val) {
+	// 		return !val;
+	// 	});
 
-		// Set all other checkboxes to false.
-		$(".propertycellcheckbox > input").prop("checked", function(index, val) {
-			if (!$.contains(row, this)) {
-				return false;
-			}
-		});
+	// 	// Set all other checkboxes to false.
+	// 	$(".propertycellcheckbox > input").prop("checked", function(index, val) {
+	// 		if (!$.contains(row, this)) {
+	// 			return false;
+	// 		}
+	// 	});
 
-		updateOption();
-	});
-	updateOption();
+	// 	updateOption();
+	// });
+	// updateOption();
 }
 
 function updateOption() {
@@ -2260,8 +2264,8 @@ function buy() {
 	var property = square[p.position];
 	var cost = property.price;
 
-	//var result = Math.floor(Math.random() * 2);
-	var result = 0;
+	var result = Math.floor(Math.random() * 2);
+	//var result = 0;
 
 	if(result === 1)
 	{
@@ -2280,11 +2284,17 @@ function buy() {
 	}
 	else
 	{
-		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
-		p.money -= reward[property.level]/4;
+		if(p.usefreehit === 1)
+			addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+		else
+		{
+			addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
+			p.money -= reward[property.level]/4;
+		}
 	}
 	updateMoney();
 	updateOwned();
+	p.usefreehit=0;
 	game.next();
 	// if (p.money >= cost) {
 	// 	p.pay(cost, 0);
@@ -2363,6 +2373,14 @@ function pass()
 	game.next();
 }
 
+function freehitbutton()
+{
+	var p = player[turn];
+	p.usefreehit=1;
+	p.freehit--;
+	buy();
+}
+
 function land(increasedRent) {
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
@@ -2378,6 +2396,7 @@ function land(increasedRent) {
 	addAlert(p.name + " landed on " + s.name + ".");
 
 	// Allow player to buy the property on which he landed.
+	if(p.position!=0 && p.position!=6){
 	if (s.owner === 0) {
 
 		// if (!p.human) {
@@ -2386,8 +2405,13 @@ function land(increasedRent) {
 		// 		buy();
 		// 	}
 		// } else {
+			
+
 			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
+			if (p.freehit>0)
+				document.getElementById("landed").innerHTML += "<div> You have " +p.freehit+ " available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
+			
 			// document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
 			// document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
 		// }
@@ -2466,6 +2490,8 @@ function land(increasedRent) {
 		{
 			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+			if (p.freehit>0)
+				document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 			// addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
 			// p.pay(rent, s.owner);
 			// player[s.owner].money += rent;
@@ -2480,6 +2506,7 @@ function land(increasedRent) {
 		document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
 	}
+}
 	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
 	// 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
 	// }
@@ -2507,7 +2534,11 @@ function land(increasedRent) {
 	// if (p.position === 38) {
 	// 	luxurytax();
 	// }
-
+else if (p.position === 6)
+{
+	addAlert(p.name + " receives a Free Hit card! Use it to attempt any question without penalties");
+	p.freehit++;
+}
 	updateMoney();
 	updatePosition();
 	updateOwned();
@@ -2911,8 +2942,10 @@ window.onload = function() {
 			currentCellOwner.id = "cell" + i + "owner";
 			currentCellOwner.className = "cell-owner";
 		
-
-		document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
+		if(i===0 || i===6 || i===12 || i===18)
+			document.getElementById("enlarge" + i + "color").style.backgroundColor = color[3];
+		else
+			document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
 		document.getElementById("enlarge" + i + "name").textContent = s.name;
 		document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
 	}
@@ -2947,7 +2980,10 @@ window.onload = function() {
 		for (var i = 0; i < 24; i++)
 		{
 			var s = square[i];
-			document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
+			if(i===0 || i===6 || i===12 || i===18)
+			document.getElementById("enlarge" + i + "color").style.backgroundColor = color[3];
+			else
+				document.getElementById("enlarge" + i + "color").style.backgroundColor = color[s.level];
 			document.getElementById("enlarge" + i + "name").textContent = s.name;
 			document.getElementById("enlarge" + i + "price").textContent = s.pricetext;
 		}	

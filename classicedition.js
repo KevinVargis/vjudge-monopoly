@@ -8,7 +8,7 @@ function Square(name) {
 	this.pricetext = this.price;
 	this.color = color[this.level];
 	this.owner = 0;
-
+	this.blocked = 0;
 	this.updateSquare = function()
 	{
 		if(this.level === 3)
