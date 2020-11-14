@@ -1131,7 +1131,7 @@ function Player(name, color) {
 	this.freehit=0;
 	this.usefreehit=0;
 	this.blockcard=0;
-	this.skipcard = 1;
+	this.skipcard = 0;
 	this.position = 0;
 	this.money = 60;
 	this.creditor = -1;
