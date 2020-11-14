@@ -2225,8 +2225,8 @@ function buy() {
 	var property = square[p.position];
 	var cost = property.price;
 
-	// var result = Math.floor(Math.random() * 2);
-	var result = 1;
+	var result = Math.floor(Math.random() * 2);
+	// var result = 1;
 
 	if(result === 1)
 	{
@@ -2242,6 +2242,11 @@ function buy() {
 		property.updateSquare();
 		property.owner = turn;
 		
+	}
+	else
+	{
+		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
+		p.money -= reward[property.level]/4;
 	}
 	updateMoney();
 	updateOwned();
@@ -2306,6 +2311,22 @@ function unmortgage(index) {
 	return true;
 }
 
+function pass()
+{
+	var p = player[turn];
+	var s = square[p.position];
+	if(s.owner != 0)
+	{
+		var rent = reward[s.level-1]/8;
+		if(s.owner != turn)
+			addAlert(p.name + " paid " + rent + " points as rent to " + player[s.owner].name + ".");
+		p.money -= rent;
+		player[s.owner].money += rent;
+		updateMoney();
+		updatePosition();
+	}
+	game.next();
+}
 
 function land(increasedRent) {
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
@@ -2330,7 +2351,10 @@ function land(increasedRent) {
 		// 		buy();
 		// 	}
 		// } else {
-			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
+			// document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
+			// document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
 		// }
 
 
@@ -2396,13 +2420,31 @@ function land(increasedRent) {
 		// 		}
 		// 	}
 		// }
+		if(s.level === 3)
+		{
+			rent = 12/8;
+			addAlert(p.name + " paid " + rent + " points as rent to " + player[s.owner].name + ".");
+			p.money -= rent;
+			player[s.owner].money += rent;
+		}
+		else
+		{
+			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+			// addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
+			// p.pay(rent, s.owner);
+			// player[s.owner].money += rent;
 
-		addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
-		p.pay(rent, s.owner);
-		player[s.owner].money += rent;
+			// document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected $" + rent + " rent.";
+		}
 
-		document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected $" + rent + " rent.";
+		
 	} 
+	else if (s.owner != 0 && s.owner === turn)
+	{
+		document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+	}
 	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
 	// 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
 	// }
@@ -2551,7 +2593,7 @@ function roll() {
 		if (p.position >= 24) {
 			p.position -= 24;
 			p.money += 2;
-			addAlert(p.name + " collected a $200 salary for passing GO.");
+			addAlert(p.name + " received 2 points for passing GO.");
 		}
 
 		land();
