@@ -24,11 +24,11 @@ function Game() {
 			p.AI.payDebt();
 
 			if (p.money < 0) {
-				popup("<p>" + p.name + " is bankrupt. All of its assets will be turned over to " + player[p.creditor].name + ".</p>", game.bankruptcy);
+				popup("<p>" + p.name + " is bankrupt, and now will be eliminated from the game." + ".</p>", game.eliminatePlayer());
 			} else {
 				roll();
 			}
-		} else if (areDiceRolled && doublecount === 0) {
+		} else if (areDiceRolled) {
 			play();
 		} else {
 			roll();
@@ -705,162 +705,162 @@ function Game() {
 
 	};
 
-	this.trade = function(tradeObj) {
-		$("#board").hide();
-		$("#control").hide();
-		$("#trade").show();
-		$("#proposetradebutton").show();
-		$("#canceltradebutton").show();
-		$("#accepttradebutton").hide();
-		$("#rejecttradebutton").hide();
+	// this.trade = function(tradeObj) {
+	// 	$("#board").hide();
+	// 	$("#control").hide();
+	// 	$("#trade").show();
+	// 	$("#proposetradebutton").show();
+	// 	$("#canceltradebutton").show();
+	// 	$("#accepttradebutton").hide();
+	// 	$("#rejecttradebutton").hide();
 
-		if (tradeObj instanceof Trade) {
-			// writeTrade(tradeObj);
-			// this.proposeTrade();
-		} else {
-			var initiator = player[turn];
-			var recipient = turn === 1 ? player[2] : player[1];
+	// 	if (tradeObj instanceof Trade) {
+	// 		// writeTrade(tradeObj);
+	// 		// this.proposeTrade();
+	// 	} else {
+	// 		var initiator = player[turn];
+	// 		var recipient = turn === 1 ? player[2] : player[1];
 
-			currentInitiator = initiator;
-			currentRecipient = recipient;
+	// 		currentInitiator = initiator;
+	// 		currentRecipient = recipient;
 
-			// resetTrade(initiator, recipient, true);
-		}
-	};
-
-
-	this.cancelTrade = function() {
-		$("#board").show();
-		$("#control").show();
-		$("#trade").hide();
+	// 		// resetTrade(initiator, recipient, true);
+	// 	}
+	// };
 
 
-		if (!player[turn].human) {
-			player[turn].AI.alertList = "";
-			game.next();
-		}
-
-	};
-
-	this.acceptTrade = function(tradeObj) {
-		if (isNaN(document.getElementById("trade-leftp-money").value)) {
-			document.getElementById("trade-leftp-money").value = "This value must be a number.";
-			document.getElementById("trade-leftp-money").style.color = "red";
-			return false;
-		}
-
-		if (isNaN(document.getElementById("trade-rightp-money").value)) {
-			document.getElementById("trade-rightp-money").value = "This value must be a number.";
-			document.getElementById("trade-rightp-money").style.color = "red";
-			return false;
-		}
-
-		var showAlerts = true;
-		var money;
-		var initiator;
-		var recipient;
-
-		if (tradeObj) {
-			showAlerts = false;
-		} else {
-			// tradeObj = readTrade();
-		}
-
-		money = tradeObj.getMoney();
-		initiator = tradeObj.getInitiator();
-		recipient = tradeObj.getRecipient();
+	// this.cancelTrade = function() {
+	// 	$("#board").show();
+	// 	$("#control").show();
+	// 	$("#trade").hide();
 
 
-		if (money > 0 && money > initiator.money) {
-			document.getElementById("trade-leftp-money").value = initiator.name + " does not have $" + money + ".";
-			document.getElementById("trade-leftp-money").style.color = "red";
-			return false;
-		} else if (money < 0 && -money > recipient.money) {
-			document.getElementById("trade-rightp-money").value = recipient.name + " does not have $" + (-money) + ".";
-			document.getElementById("trade-rightp-money").style.color = "red";
-			return false;
-		}
+	// 	if (!player[turn].human) {
+	// 		player[turn].AI.alertList = "";
+	// 		game.next();
+	// 	}
 
-		var isAPropertySelected = 0;
+	// };
 
-		// Ensure that some properties are selected.
-		for (var i = 0; i < 40; i++) {
-			isAPropertySelected |= tradeObj.getProperty(i);
-		}
+	// this.acceptTrade = function(tradeObj) {
+	// 	if (isNaN(document.getElementById("trade-leftp-money").value)) {
+	// 		document.getElementById("trade-leftp-money").value = "This value must be a number.";
+	// 		document.getElementById("trade-leftp-money").style.color = "red";
+	// 		return false;
+	// 	}
 
-		isAPropertySelected |= tradeObj.getCommunityChestJailCard();
-		isAPropertySelected |= tradeObj.getChanceJailCard();
+	// 	if (isNaN(document.getElementById("trade-rightp-money").value)) {
+	// 		document.getElementById("trade-rightp-money").value = "This value must be a number.";
+	// 		document.getElementById("trade-rightp-money").style.color = "red";
+	// 		return false;
+	// 	}
 
-		if (isAPropertySelected === 0) {
-			popup("<p>One or more properties must be selected in order to trade.</p>");
+	// 	var showAlerts = true;
+	// 	var money;
+	// 	var initiator;
+	// 	var recipient;
 
-			return false;
-		}
+	// 	if (tradeObj) {
+	// 		showAlerts = false;
+	// 	} else {
+	// 		// tradeObj = readTrade();
+	// 	}
 
-		if (showAlerts && !confirm(initiator.name + ", are you sure you want to make this exchange with " + recipient.name + "?")) {
-			return false;
-		}
+	// 	money = tradeObj.getMoney();
+	// 	initiator = tradeObj.getInitiator();
+	// 	recipient = tradeObj.getRecipient();
 
-		// Exchange properties
-		for (var i = 0; i < 40; i++) {
 
-			if (tradeObj.getProperty(i) === 1) {
-				square[i].owner = recipient.index;
-				addAlert(recipient.name + " received " + square[i].name + " from " + initiator.name + ".");
-			} else if (tradeObj.getProperty(i) === -1) {
-				square[i].owner = initiator.index;
-				addAlert(initiator.name + " received " + square[i].name + " from " + recipient.name + ".");
-			}
+	// 	if (money > 0 && money > initiator.money) {
+	// 		document.getElementById("trade-leftp-money").value = initiator.name + " does not have $" + money + ".";
+	// 		document.getElementById("trade-leftp-money").style.color = "red";
+	// 		return false;
+	// 	} else if (money < 0 && -money > recipient.money) {
+	// 		document.getElementById("trade-rightp-money").value = recipient.name + " does not have $" + (-money) + ".";
+	// 		document.getElementById("trade-rightp-money").style.color = "red";
+	// 		return false;
+	// 	}
 
-		}
+	// 	var isAPropertySelected = 0;
 
-		if (tradeObj.getCommunityChestJailCard() === 1) {
-			initiator.communityChestJailCard = false;
-			recipient.communityChestJailCard = true;
-			addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
-		} else if (tradeObj.getCommunityChestJailCard() === -1) {
-			initiator.communityChestJailCard = true;
-			recipient.communityChestJailCard = false;
-			addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
-		}
+	// 	// Ensure that some properties are selected.
+	// 	for (var i = 0; i < 40; i++) {
+	// 		isAPropertySelected |= tradeObj.getProperty(i);
+	// 	}
 
-		if (tradeObj.getChanceJailCard() === 1) {
-			initiator.chanceJailCard = false;
-			recipient.chanceJailCard = true;
-			addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
-		} else if (tradeObj.getChanceJailCard() === -1) {
-			initiator.chanceJailCard = true;
-			recipient.chanceJailCard = false;
-			addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
-		}
+	// 	isAPropertySelected |= tradeObj.getCommunityChestJailCard();
+	// 	isAPropertySelected |= tradeObj.getChanceJailCard();
 
-		// Exchange money.
-		if (money > 0) {
-			initiator.pay(money, recipient.index);
-			recipient.money += money;
+	// 	if (isAPropertySelected === 0) {
+	// 		popup("<p>One or more properties must be selected in order to trade.</p>");
 
-			addAlert(recipient.name + " received $" + money + " from " + initiator.name + ".");
-		} else if (money < 0) {
-			money = -money;
+	// 		return false;
+	// 	}
 
-			recipient.pay(money, initiator.index);
-			initiator.money += money;
+	// 	if (showAlerts && !confirm(initiator.name + ", are you sure you want to make this exchange with " + recipient.name + "?")) {
+	// 		return false;
+	// 	}
 
-			addAlert(initiator.name + " received $" + money + " from " + recipient.name + ".");
-		}
+	// 	// Exchange properties
+	// 	for (var i = 0; i < 40; i++) {
 
-		updateOwned();
-		updateMoney();
+	// 		if (tradeObj.getProperty(i) === 1) {
+	// 			square[i].owner = recipient.index;
+	// 			addAlert(recipient.name + " received " + square[i].name + " from " + initiator.name + ".");
+	// 		} else if (tradeObj.getProperty(i) === -1) {
+	// 			square[i].owner = initiator.index;
+	// 			addAlert(initiator.name + " received " + square[i].name + " from " + recipient.name + ".");
+	// 		}
 
-		$("#board").show();
-		$("#control").show();
-		$("#trade").hide();
+	// 	}
 
-		if (!player[turn].human) {
-			player[turn].AI.alertList = "";
-			game.next();
-		}
-	};
+	// 	if (tradeObj.getCommunityChestJailCard() === 1) {
+	// 		initiator.communityChestJailCard = false;
+	// 		recipient.communityChestJailCard = true;
+	// 		addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
+	// 	} else if (tradeObj.getCommunityChestJailCard() === -1) {
+	// 		initiator.communityChestJailCard = true;
+	// 		recipient.communityChestJailCard = false;
+	// 		addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
+	// 	}
+
+	// 	if (tradeObj.getChanceJailCard() === 1) {
+	// 		initiator.chanceJailCard = false;
+	// 		recipient.chanceJailCard = true;
+	// 		addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
+	// 	} else if (tradeObj.getChanceJailCard() === -1) {
+	// 		initiator.chanceJailCard = true;
+	// 		recipient.chanceJailCard = false;
+	// 		addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
+	// 	}
+
+	// 	// Exchange money.
+	// 	if (money > 0) {
+	// 		initiator.pay(money, recipient.index);
+	// 		recipient.money += money;
+
+	// 		addAlert(recipient.name + " received $" + money + " from " + initiator.name + ".");
+	// 	} else if (money < 0) {
+	// 		money = -money;
+
+	// 		recipient.pay(money, initiator.index);
+	// 		initiator.money += money;
+
+	// 		addAlert(initiator.name + " received $" + money + " from " + recipient.name + ".");
+	// 	}
+
+	// 	updateOwned();
+	// 	updateMoney();
+
+	// 	$("#board").show();
+	// 	$("#control").show();
+	// 	$("#trade").hide();
+
+	// 	if (!player[turn].human) {
+	// 		player[turn].AI.alertList = "";
+	// 		game.next();
+	// 	}
+	// };
 
 	this.proposeTrade = function() {
 		if (isNaN(document.getElementById("trade-leftp-money").value)) {
@@ -961,10 +961,18 @@ function Game() {
 
 		}
 
-		for (var i = 0; i < 40; i++) {
+		for (var i = 0; i < 24; i++) {
+			if(square[i].owner === p.index)
+			{
+				square[i].level=0;
+				square[i].owner=0;
+				square[i].updateSquare();
+			}
+
 			if (square[i].owner >= p.index) {
 				square[i].owner--;
 			}
+			
 		}
 
 		pcount--;
@@ -977,10 +985,9 @@ function Game() {
 		}
 
 		if (pcount === 1) {
-			updateMoney();
-			$("#control").hide();
-			$("#board").hide();
-			$("#refresh").show();
+
+			//updateMoney();
+
 
 			// // Display land counts for survey purposes.
 			// var text;
@@ -991,10 +998,16 @@ function Game() {
 					// text += " " + square[i].landcount;
 			// }
 			// document.getElementById("refresh").innerHTML += "<br><br><div><textarea type='text' style='width: 980px;' onclick='javascript:select();' />" + text + "</textarea></div>";
-
+			
+			$("#board").hide();
+			
 			popup("<p>Congratulations, " + player[1].name + ", you have won the game.</p><div>");
+			$("#control").hide();
+			
+			$("#refresh").show();
 
 		} else {
+			popup("<p>" + player[1].name + "has been eliminated for having less than 0 points.</p><div>");
 			play();
 		}
 	};
@@ -1051,55 +1064,57 @@ function Game() {
 		}
 
 		addAlert(p.name + " is bankrupt.");
-
-		if (p.creditor !== 0) {
-			pcredit.money += p.money;
-		}
-
-		for (var i = 0; i < 40; i++) {
-			sq = square[i];
-			if (sq.owner == p.index) {
-				// Mortgaged properties will be tranfered by bankruptcyUnmortgage();
-				if (!sq.mortgage) {
-					sq.owner = p.creditor;
-				} else {
-					bankruptcyUnmortgageFee += Math.round(sq.price * 0.1);
-				}
-
-				if (sq.house > 0) {
-					if (p.creditor !== 0) {
-						pcredit.money += sq.houseprice * 0.5 * sq.house;
-					}
-					sq.hotel = 0;
-					sq.house = 0;
-				}
-
-				if (p.creditor === 0) {
-					sq.mortgage = false;
-					game.addPropertyToAuctionQueue(i);
-					sq.owner = 0;
-				}
-			}
-		}
-
 		updateMoney();
+		game.eliminatePlayer();
 
-		if (p.chanceJailCard) {
-			p.chanceJailCard = false;
-			pcredit.chanceJailCard = true;
-		}
+		// if (p.creditor !== 0) {
+		// 	pcredit.money += p.money;
+		// }
 
-		if (p.communityChestJailCard) {
-			p.communityChestJailCard = false;
-			pcredit.communityChestJailCard = true;
-		}
+		// for (var i = 0; i < 40; i++) {
+		// 	sq = square[i];
+		// 	if (sq.owner == p.index) {
+		// 		// Mortgaged properties will be tranfered by bankruptcyUnmortgage();
+		// 		if (!sq.mortgage) {
+		// 			sq.owner = p.creditor;
+		// 		} else {
+		// 			bankruptcyUnmortgageFee += Math.round(sq.price * 0.1);
+		// 		}
 
-		if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
-			game.eliminatePlayer();
-		} else {
-			addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
-			popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
-		}
+		// 		if (sq.house > 0) {
+		// 			if (p.creditor !== 0) {
+		// 				pcredit.money += sq.houseprice * 0.5 * sq.house;
+		// 			}
+		// 			sq.hotel = 0;
+		// 			sq.house = 0;
+		// 		}
+
+		// 		if (p.creditor === 0) {
+		// 			sq.mortgage = false;
+		// 			game.addPropertyToAuctionQueue(i);
+		// 			sq.owner = 0;
+		// 		}
+		// 	}
+		// }
+
+		// 
+
+		// if (p.chanceJailCard) {
+		// 	p.chanceJailCard = false;
+		// 	pcredit.chanceJailCard = true;
+		// }
+
+		// if (p.communityChestJailCard) {
+		// 	p.communityChestJailCard = false;
+		// 	pcredit.communityChestJailCard = true;
+		// }
+
+		// if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
+		// 	game.eliminatePlayer();
+		// } else {
+		// 	addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
+		// 	popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
+		// }
 	};
 
 }
@@ -1110,7 +1125,7 @@ function Player(name, color) {
 	this.name = name;
 	this.color = color;
 	this.position = 0;
-	this.money = 60;
+	this.money = 1;
 	this.creditor = -1;
 	this.jail = false;
 	this.jailroll = 0;
@@ -1370,11 +1385,29 @@ function updateMoney() {
 
 	for (var i = 1; i <= pcount; i++) {
 		p_i = player[i];
+		var grade;
+		if(p_i.money<60)
+			grade="F";
+		else if(p_i.money <80)
+			grade="D";
+		else if(p_i.money <100)
+			grade="C-";
+		else if(p_i.money <120)
+			grade="C";
+		else if(p_i.money < 140)
+			grade="B-";
+		else if(p_i.money <160)
+			grade="B";
+		else if( p_i.money < 180)
+			grade="A-";
+		else
+			grade="A";
 
 		$("#moneybarrow" + i).show();
 		document.getElementById("p" + i + "moneybar").style.border = "2px solid " + p_i.color;
 		document.getElementById("p" + i + "money").innerHTML = p_i.money;
 		document.getElementById("p" + i + "moneyname").innerHTML = p_i.name;
+		document.getElementById("p" + i + "grade").innerHTML = "Grade: " + grade;
 	}
 	// show("moneybarrow9"); // Don't remove this line or make the first for-loop stop when i <= 8, because this affects how the table is displayed.
 
@@ -1385,9 +1418,11 @@ function updateMoney() {
 	document.getElementById("quickstats").style.borderColor = p.color;
 
 	if (p.money < 0) {
-		// document.getElementById("nextbutton").disabled = true;
-		$("#resignbutton").show();
-		$("#nextbutton").hide();
+		// $("#resignbutton").show();
+		// $("#nextbutton").hide();
+
+		game.eliminatePlayer();
+		
 	} else {
 		// document.getElementById("nextbutton").disabled = false;
 		$("#resignbutton").hide();
@@ -2225,8 +2260,8 @@ function buy() {
 	var property = square[p.position];
 	var cost = property.price;
 
-	var result = Math.floor(Math.random() * 2);
-	// var result = 1;
+	//var result = Math.floor(Math.random() * 2);
+	var result = 0;
 
 	if(result === 1)
 	{
