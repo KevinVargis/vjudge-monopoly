@@ -1,7 +1,5 @@
-# monopoly
+# Algorithm Analysis and Design Project - Concept Assesment Board Game
 
-A JavaScript/HTML/CSS Monopoly implementation with full game play. Supports two-eight players.
-
-Play online at [http://www.intrepidcoder.com/projects/monopoly/](http://www.intrepidcoder.com/projects/monopoly/).
-
-Includes an experimental capability to play against an AI. A test AI for demonstration purposes is included.
+- Objective
+    - Make assessment of concepts more engaging by incorpotating the evaluation of knowledge possesed regarding common algorithmic problems and their various solutions in a chance-based board game.
+    - This game includes elements from games like Monopoly to create an interactive and competitive environment.

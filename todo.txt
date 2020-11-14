@@ -1,12 +1,12 @@
 // 1. On adding levels, go to showdeed function, and edit the deed elements like difficulty-level to sq.level - 1.
-2. Handle stats display for special cards(should not show price etc.).
+// 2. Handle stats display for special cards(should not show price etc.).
 // 3. When a player lands on someones, do rent proper(now just nan)
 // 4. in solve, add the failure stuff
 // 5. add button for passing
-6. special cards
-    1. allocation
-    2. usage(manage)
-    3. display
-    4. user handling cant buy these
+//6. special cards
+  //  1. allocation
+  //  2. usage(manage)
+  //  3. display
+  //  4. user handling cant buy these
 //7. Add stuff for bankruptcy
 //8. Add Grades

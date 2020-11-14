@@ -1,3 +1,5 @@
+var skipuse = 0;
+var skiplevel = -1;
 function Game() {
 	var die1;
 	var die2;
@@ -1129,6 +1131,7 @@ function Player(name, color) {
 	this.freehit=0;
 	this.usefreehit=0;
 	this.blockcard=0;
+	this.skipcard = 1;
 	this.position = 0;
 	this.money = 60;
 	this.creditor = -1;
@@ -2281,34 +2284,68 @@ function buy() {
 		updateOwned();
 	}
 
-	else{
-	var result = Math.floor(Math.random() * 2);
-	//var result = 0;
-
-	if(result === 1)
+	else if(skipuse === 1)
 	{
-		if(property.owner)
+		var result = Math.floor(Math.random() * 2);
+		//var result = 0;
+		
+		if(result === 1)
 		{
-			var temp = player[property.owner];
-			temp.money -= reward[property.level-1];
-			addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+			if(property.owner)
+			{
+				var temp = player[property.owner];
+				temp.money -= reward[property.level-1];
+				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+			}
+			addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
+			p.money += reward[skiplevel];
+			property.level = skiplevel + 1;
+			property.updateSquare();
+			property.owner = turn;		
 		}
-		addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
-		p.money += reward[property.level];
-		property.level++;
-		property.updateSquare();
-		property.owner = turn;		
-	}
-	else
-	{
-		if(p.usefreehit === 1)
-			addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
 		else
 		{
-			addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
-			p.money -= reward[property.level]/4;
+			if(p.usefreehit === 1)
+				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+			else
+			{
+				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
+				p.money -= reward[skiplevel]/4;
+			}
 		}
+		skipuse = -1;
+		skiplevel = -1;
 	}
+
+	else
+	{
+		var result = Math.floor(Math.random() * 2);
+		//var result = 0;
+
+		if(result === 1)
+		{
+			if(property.owner)
+			{
+				var temp = player[property.owner];
+				temp.money -= reward[property.level-1];
+				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+			}
+			addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
+			p.money += reward[property.level];
+			property.level++;
+			property.updateSquare();
+			property.owner = turn;		
+		}
+		else
+		{
+			if(p.usefreehit === 1)
+				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+			else
+			{
+				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
+				p.money -= reward[property.level]/4;
+			}
+		}
 	}
 	updateMoney();
 	updateOwned();
@@ -2399,6 +2436,33 @@ function freehitbutton()
 	buy();
 }
 
+function skipmed()
+{
+	skipuse = 1;
+	skiplevel = 1;
+	buy();
+}
+
+function skiphard()
+{
+	skipuse = 1;
+	skiplevel = 2;
+	buy();
+}
+
+function skipbutton()
+{
+	var p = player[turn];
+	var sq = square[p.position];
+	p.skipcard--;
+	document.getElementById("landed").innerHTML = "";
+	if(sq.level < 1)
+		document.getElementById("landed").innerHTML += "<div> Skip to Medium Level question <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipmed();' value='Skip to Medium ' title='Skip Medium " + ".'/></div>";
+	if(sq.level < 2)
+		document.getElementById("landed").innerHTML += "<div> Skip to Hard Level question <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skiphard();' value='Skip to Hard ' title='Skip Hard " + ".'/></div>";
+		
+}
+
 function land(increasedRent) {
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
@@ -2420,7 +2484,7 @@ function land(increasedRent) {
 		document.getElementById("landed").innerHTML = "<div> You have " + p.blockcard +" available Block Square cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='blocksquarebutton();' value='Use Block Square' title='Block Square " + ".'/></div>";
 	}
 	// Allow player to buy the property on which he landed.
-	if(p.position!=0 && p.position!=6 && p.position!=12){
+	if(p.position!=0 && p.position!=6 && p.position!=12 && p.position != 18){
 	if (s.owner === 0) {
 
 		// if (!p.human) {
@@ -2435,7 +2499,8 @@ function land(increasedRent) {
 			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " +p.freehit+ " available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
-			
+			if(p.skipcard > 0 && s.level < 2)
+				document.getElementById("landed").innerHTML += "<div> You have " +p.skipcard+ " available skip cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipbutton();' value='Use Skip Card ' title='Skip " + ".'/></div>";
 		// }
 
 
@@ -2514,6 +2579,9 @@ function land(increasedRent) {
 			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
+
+			if(p.skipcard > 0 && s.level < 2)
+				document.getElementById("landed").innerHTML += "<div> You have " +p.skipcard+ " available skip cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipbutton();' value='Use Skip Card ' title='Skip " + ".'/></div>";
 			// addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
 			// p.pay(rent, s.owner);
 			// player[s.owner].money += rent;
@@ -2527,6 +2595,12 @@ function land(increasedRent) {
 	{
 		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass' title='Pass " + s.name  +  ".'/></div>";
+
+		if (p.freehit>0)
+			document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
+
+		if(p.skipcard > 0 && s.level < 2)
+			document.getElementById("landed").innerHTML += "<div> You have " +p.skipcard+ " available skip cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipbutton();' value='Use Skip Card ' title='Skip " + ".'/></div>";
 	}
 }
 	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
@@ -2565,6 +2639,11 @@ else if (p.position === 12)
 {
 	addAlert(p.name + " receives a Block Square card! Use it to block an attempt from the next person landing on the square that you solve");
 	p.blockcard++;
+}
+else if(p.position === 18)
+{
+	addAlert(p.name + " receives a Skip Levels card! Use it to attempt a question without having to solve its easier versions");
+	p.skipcard++;
 }
 	updateMoney();
 	updatePosition();
