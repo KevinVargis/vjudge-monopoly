@@ -12,8 +12,8 @@ function Game() {
 	this.rollDice = function() {
 		die1 = Math.floor(Math.random() * 6) + 1;
 		die2 = Math.floor(Math.random() * 6) + 1;
-		// die1=1;
-		// die2=1;
+		// die1=4;
+		// die2=4;
 		areDiceRolled = true;
 	};
 
@@ -1128,6 +1128,7 @@ function Player(name, color) {
 	this.color = color;
 	this.freehit=0;
 	this.usefreehit=0;
+	this.blockcard=0;
 	this.position = 0;
 	this.money = 60;
 	this.creditor = -1;
@@ -2259,11 +2260,28 @@ function hidedeed() {
 	$("#deed").hide();
 }
 
+function blocksquarebutton()
+{
+	var p = player[turn];
+	var property = square[p.position];
+	property.blocked=1;
+	p.blockcard--;
+}
+
 function buy() {
 	var p = player[turn];
 	var property = square[p.position];
 	var cost = property.price;
 
+	if(property.blocked ===1 && p.index!=property.owner)
+	{
+		addAlert(property.owner + " has used a Block Square card on this question, hard luck! ");
+		property.blocked--;
+		updateMoney();
+		updateOwned();
+	}
+
+	else{
 	var result = Math.floor(Math.random() * 2);
 	//var result = 0;
 
@@ -2279,8 +2297,7 @@ function buy() {
 		p.money += reward[property.level];
 		property.level++;
 		property.updateSquare();
-		property.owner = turn;
-		
+		property.owner = turn;		
 	}
 	else
 	{
@@ -2291,6 +2308,7 @@ function buy() {
 			addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
 			p.money -= reward[property.level]/4;
 		}
+	}
 	}
 	updateMoney();
 	updateOwned();
@@ -2391,12 +2409,18 @@ function land(increasedRent) {
 	var die2 = game.getDie(2);
 
 	$("#landed").show();
-	document.getElementById("landed").innerHTML = "You landed on " + s.name + ".";
+	if(p.position ===0 || p.position ===6 || p.position ===12 || p.position ===18)
+		document.getElementById("landed").innerHTML = "You landed on " + s.name + ".";
+	else
+		document.getElementById("landed").innerHTML = "";
 	s.landcount++;
 	addAlert(p.name + " landed on " + s.name + ".");
-
+	if(p.index===s.owner && p.blockcard>0){
+		//console.log("hi");
+		document.getElementById("landed").innerHTML = "<div> You have " + p.blockcard +" available Block Square cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='blocksquarebutton();' value='Use Block Square' title='Block Square " + ".'/></div>";
+	}
 	// Allow player to buy the property on which he landed.
-	if(p.position!=0 && p.position!=6){
+	if(p.position!=0 && p.position!=6 && p.position!=12){
 	if (s.owner === 0) {
 
 		// if (!p.human) {
@@ -2412,8 +2436,6 @@ function land(increasedRent) {
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " +p.freehit+ " available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 			
-			// document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
-			// document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Buy ($" + s.price + ")' title='Buy " + s.name + " for " + s.pricetext + ".'/></div>";
 		// }
 
 
@@ -2501,10 +2523,10 @@ function land(increasedRent) {
 
 		
 	} 
-	else if (s.owner != 0 && s.owner === turn)
+	else if (s.owner != 0 && s.owner === turn && p.level!=3)
 	{
-		document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
-		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass' title='Pass " + s.name  +  ".'/></div>";
 	}
 }
 	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
@@ -2538,6 +2560,11 @@ else if (p.position === 6)
 {
 	addAlert(p.name + " receives a Free Hit card! Use it to attempt any question without penalties");
 	p.freehit++;
+}
+else if (p.position === 12)
+{
+	addAlert(p.name + " receives a Block Square card! Use it to block an attempt from the next person landing on the square that you solve");
+	p.blockcard++;
 }
 	updateMoney();
 	updatePosition();
