@@ -34,9 +34,9 @@ function corrections() {
 	//document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
 
 	// Add images to enlarges.
-	document.getElementById("enlarge5token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
-	document.getElementById("enlarge15token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
-	// document.getElementById("enlarge25token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge12token").innerHTML += '<img src="images/block_square.png" height="50" width="50" alt="" style="position: relative; bottom: -5px;" />';
+	document.getElementById("enlarge6token").innerHTML += '<img src="images/free_hit.png" height="60" width="65" alt="" style="position: relative; bottom: -10px;" />';
+	document.getElementById("enlarge18token").innerHTML += '<img src="images/jump_level.png" height="60" width="65" alt="" style="position: relative; bottom: -5px;" />';
 	// document.getElementById("enlarge35token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
 	// document.getElementById("enlarge12token").innerHTML += '<img src="images/electric_icon.png" height="60" width="48" alt="" style="position: relative; top: -20px;" />';
 	// document.getElementById("enlarge28token").innerHTML += '<img src="images/water_icon.png" height="60" width="78" alt="" style="position: relative; top: -20px;" />';
@@ -74,7 +74,7 @@ square[2] = new Square("Algo2");
 square[3] = new Square("Algo3");
 square[4] = new Square("Algo4");
 square[6] = new Square("Free Hit");
-square[6].pricetext="use the card you get here to attempt a question without any penalty";
+square[6].pricetext="Use the card you get here to attempt a question without any penalty";
 square[6].color="#000000";
 square[5] = new Square("Algo5");
 square[7] = new Square("Algo6");

@@ -11,3 +11,4 @@
 //7. Add stuff for bankruptcy
 //8. Add Grades
 9. Pass doesn't show penalty for some reason
+10. Fix images for enlarge
