@@ -34,12 +34,12 @@ function corrections() {
 	//document.getElementById("cell1name").textContent = "Mediter-ranean Avenue";
 
 	// Add images to enlarges.
-	document.getElementById("enlarge12token").innerHTML += '<img src="images/block_square.png" height="50" width="50" alt="" style="position: relative; bottom: -5px;" />';
-	document.getElementById("enlarge6token").innerHTML += '<img src="images/free_hit.png" height="60" width="65" alt="" style="position: relative; bottom: -10px;" />';
-	document.getElementById("enlarge18token").innerHTML += '<img src="images/jump_level.png" height="60" width="65" alt="" style="position: relative; bottom: -5px;" />';
-	// document.getElementById("enlarge35token").innerHTML += '<img src="images/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
-	// document.getElementById("enlarge12token").innerHTML += '<img src="images/electric_icon.png" height="60" width="48" alt="" style="position: relative; top: -20px;" />';
-	// document.getElementById("enlarge28token").innerHTML += '<img src="images/water_icon.png" height="60" width="78" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge12token").innerHTML += '<img src="static/block_square.png" height="50" width="50" alt="" style="position: relative; bottom: -5px;" />';
+	document.getElementById("enlarge6token").innerHTML += '<img src="static/free_hit.png" height="60" width="65" alt="" style="position: relative; bottom: -10px;" />';
+	document.getElementById("enlarge18token").innerHTML += '<img src="static/jump_level.png" height="60" width="65" alt="" style="position: relative; bottom: -5px;" />';
+	// document.getElementById("enlarge35token").innerHTML += '<img src="static/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
+	// document.getElementById("enlarge12token").innerHTML += '<img src="static/electric_icon.png" height="60" width="48" alt="" style="position: relative; top: -20px;" />';
+	// document.getElementById("enlarge28token").innerHTML += '<img src="static/water_icon.png" height="60" width="78" alt="" style="position: relative; top: -20px;" />';
 }
 
 function utiltext() {

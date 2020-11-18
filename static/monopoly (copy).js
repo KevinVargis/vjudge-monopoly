@@ -1461,7 +1461,7 @@ function updateDice() {
 			element0 = element0.appendChild(document.createElement("img"));
 		}
 
-		element0.src = "images/Die_" + die0 + ".png";
+		element0.src = "static/Die_" + die0 + ".png";
 		element0.alt = die0;
 
 		if (element1.firstChild) {
@@ -1470,7 +1470,7 @@ function updateDice() {
 			element1 = element1.appendChild(document.createElement("img"));
 		}
 
-		element1.src = "images/Die_" + die1 + ".png";
+		element1.src = "static/Die_" + die1 + ".png";
 		element1.alt = die0;
 	} else {
 		document.getElementById("die0").textContent = die0;
@@ -1519,10 +1519,10 @@ function updateOwned() {
 			// housetext = "";
 			// if (sq.house >= 1 && sq.house <= 4) {
 			// 	for (var x = 1; x <= sq.house; x++) {
-			// 		housetext += "<img src='images/house.png' alt='' title='House' class='house' />";
+			// 		housetext += "<img src='static/house.png' alt='' title='House' class='house' />";
 			// 	}
 			// } else if (sq.hotel) {
-			// 	housetext += "<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />";
+			// 	housetext += "<img src='static/hotel.png' alt='' title='Hotel' class='hotel' />";
 			// }
 
 			if (HTML === "") {
@@ -1616,7 +1616,7 @@ function updateOption() {
 	// 	}
 
 	// 	$("#buildings").show();
-	// 	document.getElementById("buildings").innerHTML = "<img src='images/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
+	// 	document.getElementById("buildings").innerHTML = "<img src='static/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='static/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
 
 	// 	return;
 	// }
@@ -1761,7 +1761,7 @@ function chanceCommunityChest() {
 			communityChestCards.deck.splice(communityChestCards.index, 1);
 		}
 
-		popup("<img src='images/community_chest_icon.png' style='height: 50px; width: 53px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
+		popup("<img src='static/community_chest_icon.png' style='height: 50px; width: 53px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Community Chest:</div><div style='text-align: justify;'>" + communityChestCards[communityChestIndex].text + "</div>", function() {
 			communityChestAction(communityChestIndex);
 		});
 
@@ -1780,7 +1780,7 @@ function chanceCommunityChest() {
 			chanceCards.deck.splice(chanceCards.index, 1);
 		}
 
-		popup("<img src='images/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
+		popup("<img src='static/chance_icon.png' style='height: 50px; width: 26px; float: left; margin: 8px 8px 8px 0px;' /><div style='font-weight: bold; font-size: 16px; '>Chance:</div><div style='text-align: justify;'>" + chanceCards[chanceIndex].text + "</div>", function() {
 			//chanceAction(chanceIndex);
 		});
 
@@ -2162,9 +2162,9 @@ function showStats() {
 				}
 
 				if (sq.house == 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='images/hotel.png' alt='' title='Hotel' class='hotel' style='float: none;' /></span>";
+					housetext += "<span style='float: right; font-weight: bold;'>1&nbsp;x&nbsp;<img src='static/hotel.png' alt='' title='Hotel' class='hotel' style='float: none;' /></span>";
 				} else if (sq.house > 0 && sq.house < 5) {
-					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='images/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
+					housetext += "<span style='float: right; font-weight: bold;'>" + sq.house + "&nbsp;x&nbsp;<img src='static/house.png' alt='' title='House' class='house' style='float: none;' /></span>";
 				}
 
 				HTML += "<tr><td class='statscellcolor' style='background: " + color[sq.level-1] + ";";
@@ -2271,7 +2271,131 @@ function blocksquarebutton()
 	p.blockcard--;
 }
 
-function buy() {
+function ajaxtest()
+{
+	$.ajax({
+	type: "POST",
+	url: "/run",
+	data: { param: ""}
+	}).done(function( data ) {
+		console.log(data);
+	});
+}
+
+// function buy() 
+// {
+// 	ajaxtest();
+// 	var p = player[turn];
+// 	var property = square[p.position];
+// 	var cost = property.price;
+
+// 	if(property.blocked ===1 && p.index!=property.owner)
+// 	{
+// 		addAlert(property.owner + " has used a Block Square card on this question, hard luck! ");
+// 		property.blocked--;
+// 		updateMoney();
+// 		updateOwned();
+// 	}
+
+// 	else if(skipuse === 1)
+// 	{
+// 		var result = Math.floor(Math.random() * 2);
+// 		//var result = 0;
+		
+// 		if(result === 1)
+// 		{
+// 			if(property.owner)
+// 			{
+// 				var temp = player[property.owner];
+// 				temp.money -= reward[property.level-1];
+// 				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+// 			}
+// 			addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
+// 			p.money += reward[skiplevel];
+// 			property.level = skiplevel + 1;
+// 			property.updateSquare();
+// 			property.owner = turn;		
+// 		}
+// 		else
+// 		{
+// 			if(p.usefreehit === 1)
+// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+// 			else
+// 			{
+// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
+// 				p.money -= reward[skiplevel]/4;
+// 			}
+// 		}
+// 		skipuse = -1;
+// 		skiplevel = -1;
+// 	}
+
+// 	else
+// 	{
+// 		var result = Math.floor(Math.random() * 2);
+// 		//var result = 0;
+
+// 		if(result === 1)
+// 		{
+// 			if(property.owner)
+// 			{
+// 				var temp = player[property.owner];
+// 				temp.money -= reward[property.level-1];
+// 				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+// 			}
+// 			addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
+// 			p.money += reward[property.level];
+// 			property.level++;
+// 			property.updateSquare();
+// 			property.owner = turn;		
+// 		}
+// 		else
+// 		{
+// 			if(p.usefreehit === 1)
+// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+// 			else
+// 			{
+// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
+// 				p.money -= reward[property.level]/4;
+// 			}
+// 		}
+// 	}
+// 	updateMoney();
+// 	updateOwned();
+// 	p.usefreehit=0;
+// 	game.next();
+// 	// if (p.money >= cost) {
+// 	// 	p.pay(cost, 0);
+
+// 	// 	property.owner = turn;
+// 	// 	updateMoney();
+// 	// 	addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
+
+// 	// 	updateOwned();
+
+// 	// 	$("#landed").hide();
+
+// 	// } else {
+// 	// 	popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
+// 	// }
+// }
+
+function buy() 
+{
+	// $.ajax({
+    //           type:'POST',
+    //           url: "{{ url_for('foo')}}",
+    //           dataType:"text",
+    //           success: function(response){
+    //             //  console.log(response);
+	// 			//  alert(response);
+	// 			var result_py = JSON.parse(response);
+	// 			console.log(result_py.message);
+				
+	// 			// return result_py;
+    //           }
+    //   });
+	// console.log(result_py.message);
 	var p = player[turn];
 	var property = square[p.position];
 	var cost = property.price;
@@ -2286,71 +2410,125 @@ function buy() {
 
 	else if(skipuse === 1)
 	{
-		var result = Math.floor(Math.random() * 2);
+		// var result = Math.floor(Math.random() * 2);
 		//var result = 0;
-		
-		if(result === 1)
-		{
-			if(property.owner)
-			{
-				var temp = player[property.owner];
-				temp.money -= reward[property.level-1];
-				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
-			}
-			addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
-			p.money += reward[skiplevel];
-			property.level = skiplevel + 1;
-			property.updateSquare();
-			property.owner = turn;		
-		}
-		else
-		{
-			if(p.usefreehit === 1)
-				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
-			else
-			{
-				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
-				p.money -= reward[skiplevel]/4;
-			}
-		}
-		skipuse = -1;
-		skiplevel = -1;
+		$.ajax({
+              type:'POST',
+              url: "{{ url_for('../foo')}}",
+              dataType:"text",
+              success: function(response){
+                //  console.log(response);
+				//  alert(response);
+				var result = JSON.parse(response);
+				console.log(result.message);
+				if(result.message === 1)
+				{
+					if(property.owner)
+					{
+						var temp = player[property.owner];
+						temp.money -= reward[property.level-1];
+						addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+					}
+					addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
+					p.money += reward[skiplevel];
+					property.level = skiplevel + 1;
+					property.updateSquare();
+					property.owner = turn;		
+				}
+				else
+				{
+					if(p.usefreehit === 1)
+						addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+					else
+					{
+						addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
+						p.money -= reward[skiplevel]/4;
+					}
+				}
+				skipuse = -1;
+				skiplevel = -1;
+				updateMoney();
+				updateOwned();
+				p.usefreehit=0;
+				game.next();
+				// return result_py;
+              }
+      	});
+		// if(result === 1)
+		// {
+		// 	if(property.owner)
+		// 	{
+		// 		var temp = player[property.owner];
+		// 		temp.money -= reward[property.level-1];
+		// 		addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+		// 	}
+		// 	addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
+		// 	p.money += reward[skiplevel];
+		// 	property.level = skiplevel + 1;
+		// 	property.updateSquare();
+		// 	property.owner = turn;		
+		// }
+		// else
+		// {
+		// 	if(p.usefreehit === 1)
+		// 		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+		// 	else
+		// 	{
+		// 		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
+		// 		p.money -= reward[skiplevel]/4;
+		// 	}
+		// }
+		// skipuse = -1;
+		// skiplevel = -1;
 	}
 
 	else
 	{
-		var result = Math.floor(Math.random() * 2);
+		// var result = Math.floor(Math.random() * 2);
 		//var result = 0;
-
-		if(result === 1)
-		{
-			if(property.owner)
-			{
-				var temp = player[property.owner];
-				temp.money -= reward[property.level-1];
-				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
-			}
-			addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
-			p.money += reward[property.level];
-			property.level++;
-			property.updateSquare();
-			property.owner = turn;		
-		}
-		else
-		{
-			if(p.usefreehit === 1)
-				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
-			else
-			{
-				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
-				p.money -= reward[property.level]/4;
-			}
-		}
+		$.ajax({
+              type:'POST',
+              url: "{{ url_for('../foo')}}",
+              dataType:"text",
+              success: function(response){
+                //  console.log(response);
+				//  alert(response);
+				var result = JSON.parse(response);
+				console.log(result.message);
+				if(result.message === 1)
+				{
+					if(property.owner)
+					{
+						var temp = player[property.owner];
+						temp.money -= reward[property.level-1];
+						addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
+					}
+					addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
+					p.money += reward[property.level];
+					property.level++;
+					property.updateSquare();
+					property.owner = turn;		
+				}
+				else
+				{
+					if(p.usefreehit === 1)
+						addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
+					else
+					{
+						addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
+						p.money -= reward[property.level]/4;
+					}
+				}
+				updateMoney();
+				updateOwned();
+				p.usefreehit=0;
+				game.next();
+				// return result_py;
+              }
+      	});
+		
 	}
-	updateMoney();
-	updateOwned();
-	p.usefreehit=0;
-	game.next();
+	
 	// if (p.money >= cost) {
 	// 	p.pay(cost, 0);
 
@@ -2366,6 +2544,7 @@ function buy() {
 	// 	popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
 	// }
 }
+
 
 function mortgage(index) {
 	var sq = square[index];
@@ -3058,9 +3237,9 @@ window.onload = function() {
 
 
 	// Add images to enlarges.
-	document.getElementById("enlarge0token").innerHTML += '<img src="images/arrow_icon.png" height="40" width="136" alt="" />';
-	document.getElementById("enlarge20price").innerHTML += "<img src='images/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
-	// document.getElementById("enlarge38token").innerHTML += '<img src="images/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
+	document.getElementById("enlarge0token").innerHTML += '<img src="static/arrow_icon.png" height="40" width="136" alt="" />';
+	document.getElementById("enlarge20price").innerHTML += "<img src='static/free_parking_icon.png' height='80' width='72' alt='' style='position: relative; top: -20px;' />";
+	// document.getElementById("enlarge38token").innerHTML += '<img src="static/tax_icon.png" height="60" width="70" alt="" style="position: relative; top: -20px;" />';
 
 	corrections();
 
@@ -3070,7 +3249,7 @@ window.onload = function() {
 
 	// document.getElementById("jail").enlargeId = "enlarge40";
 
-	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='images/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
+	document.getElementById("enlarge-wrap").innerHTML += "<div id='enlarge40' class='enlarge'><div id='enlarge40color' class='enlarge-color'></div><br /><div id='enlarge40name' class='enlarge-name'>Jail</div><br /><div id='enlarge40price' class='enlarge-price'><img src='static/jake_icon.png' height='80' width='80' alt='' style='position: relative; top: -20px;' /></div><br /><div id='enlarge40token' class='enlarge-token'></div></div>";
 
 	document.getElementById("enlarge40name").innerHTML = "Jail";
 
