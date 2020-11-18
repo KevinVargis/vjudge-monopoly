@@ -1,7 +1,7 @@
 #main.py
 from flask import Flask
 from flask import url_for, jsonify, render_template
-import test
+import checker
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def index():
 
 @app.route('/foo', methods=['POST'])
 def foo():
-    answer = test.ans()
+    answer = checker.check()
     return jsonify({"message": answer})
 
 if __name__ == "__main__":
