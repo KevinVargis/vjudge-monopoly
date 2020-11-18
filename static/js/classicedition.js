@@ -37,6 +37,13 @@ function corrections() {
 	document.getElementById("enlarge12token").innerHTML += '<img src="static/block_square.png" height="50" width="50" alt="" style="position: relative; bottom: -5px;" />';
 	document.getElementById("enlarge6token").innerHTML += '<img src="static/free_hit.png" height="60" width="65" alt="" style="position: relative; bottom: -10px;" />';
 	document.getElementById("enlarge18token").innerHTML += '<img src="static/jump_level.png" height="60" width="65" alt="" style="position: relative; bottom: -5px;" />';
+	document.getElementById("enlarge1token").innerHTML += '<img src="static/sort.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
+	document.getElementById("enlarge2token").innerHTML += '<img src="static/search.png" height="60" width="65" alt="" style="position: relative; bottom: 20px;" />';
+	document.getElementById("enlarge3token").innerHTML += '<img src="static/five.png" height="60" width="65" alt="" style="position: relative; bottom: 5px;" />';
+	document.getElementById("enlarge4token").innerHTML += '<img src="static/linear.png" height="60" width="65" alt="" style="position: relative; bottom: -5px;" />';
+	document.getElementById("enlarge5token").innerHTML += '<img src="static/sieve.png" height="60" width="65" alt="" style="position: relative; bottom: 5px;" />';
+	document.getElementById("enlarge7token").innerHTML += '<img src="static/golden-ratio.png" height="80" width="85" alt="" style="position: relative; bottom: 20px;" />';
+	document.getElementById("enlarge8token").innerHTML += '<img src="static/factors.png" height="80" width="85" alt="" style="position: relative; bottom: 20px;" />';
 	// document.getElementById("enlarge35token").innerHTML += '<img src="static/train_icon.png" height="60" width="65" alt="" style="position: relative; top: -20px;" />';
 	// document.getElementById("enlarge12token").innerHTML += '<img src="static/electric_icon.png" height="60" width="48" alt="" style="position: relative; top: -20px;" />';
 	// document.getElementById("enlarge28token").innerHTML += '<img src="static/water_icon.png" height="60" width="78" alt="" style="position: relative; top: -20px;" />';

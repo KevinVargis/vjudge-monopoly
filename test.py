@@ -1,4 +1,4 @@
 import random
 
-def ans():
-    return (random.randint(0, 1))
+def ans(argu):
+    return len(argu)

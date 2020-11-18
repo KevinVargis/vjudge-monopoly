@@ -2642,6 +2642,26 @@ function skipbutton()
 		
 }
 
+function solve()
+{
+	var yoyo = "xyz";
+	$.ajax({
+              type:'POST',
+			  url: "/bar",
+			//   data: {param: yoyo},
+			//   dataType:"text",
+			  contentType: "application/json",
+              data: JSON.stringify({"param": yoyo}),
+              success: function(response){
+                //  console.log(response);
+				//  alert(response);
+				// var result = JSON.parse(response);
+				console.log(response);
+				// return result_py;
+              }
+      	});	
+}
+
 function land(increasedRent) {
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
@@ -2674,8 +2694,9 @@ function land(increasedRent) {
 		// } else {
 			
 
-			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
-			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
+			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " +p.freehit+ " available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 			if(p.skipcard > 0 && s.level < 2)
@@ -2754,8 +2775,9 @@ function land(increasedRent) {
 		}
 		else
 		{
-			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
-			document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
+			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 
@@ -2772,9 +2794,9 @@ function land(increasedRent) {
 	} 
 	else if (s.owner != 0 && s.owner === turn && p.level!=3)
 	{
-		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='buy();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
-		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='pass();' value='Pass' title='Pass " + s.name  +  ".'/></div>";
-
+		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
+		document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass' title='Pass " + s.name  +  ".'/></div>";
+		document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 		if (p.freehit>0)
 			document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 
