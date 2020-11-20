@@ -2612,21 +2612,21 @@ function freehitbutton()
 	var p = player[turn];
 	p.usefreehit=1;
 	p.freehit--;
-	buy();
+	solve();
 }
 
 function skipmed()
 {
 	skipuse = 1;
 	skiplevel = 1;
-	buy();
+	solve();
 }
 
 function skiphard()
 {
 	skipuse = 1;
 	skiplevel = 2;
-	buy();
+	solve();
 }
 
 function skipbutton()
@@ -2644,14 +2644,25 @@ function skipbutton()
 
 function solve()
 {
-	var yoyo = "xyz";
+	var p = player[turn];
+	var property = square[p.position];
+	var question_no = property.qno;
+	if(property.blocked ===1 && p.index!=property.owner)
+	{
+		addAlert(property.owner + " has used a Block Square card on this question, hard luck! ");
+		property.blocked--;
+		updateMoney();
+		updateOwned();
+		game.next();
+	}
+	else if(skipuse===1){
 	$.ajax({
               type:'POST',
 			  url: "/bar",
 			//   data: {param: yoyo},
 			//   dataType:"text",
 			  contentType: "application/json",
-              data: JSON.stringify({"param": yoyo}),
+              data: JSON.stringify({"qno": question_no,"level":skiplevel}),
               success: function(response){
                 //  console.log(response);
 				//  alert(response);
@@ -2659,7 +2670,26 @@ function solve()
 				console.log(response);
 				// return result_py;
               }
-      	});	
+		  });	
+	}
+	else
+	{
+		$.ajax({
+			type:'POST',
+			url: "/bar",
+		  //   data: {param: yoyo},
+		  //   dataType:"text",
+			contentType: "application/json",
+			data: JSON.stringify({"qno": question_no,"level":property.level}),
+			success: function(response){
+			  //  console.log(response);
+			  //  alert(response);
+			  // var result = JSON.parse(response);
+			  console.log(response);
+			  // return result_py;
+			}
+		});	
+	}
 }
 
 function land(increasedRent) {

@@ -1,7 +1,7 @@
 #main.py
 from flask import Flask
 from flask import url_for, jsonify, render_template, request
-import checker, test
+import checker, test,login
 
 app = Flask(__name__)
 
@@ -19,9 +19,10 @@ def foo():
 def bar():
     # print("i do be called")
     data = request.get_json()
-    print(data["param"])
-    hai = test.ans(data["param"])
-    print(hai)
+    # print(data["param"])
+    # hai = test.ans(data["param"])
+    # print(hai)
+    login.login(data["qno"],data["level"])
     return jsonify(data)
 
 if __name__ == "__main__":
