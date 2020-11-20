@@ -1128,10 +1128,10 @@ var game;
 function Player(name, color) {
 	this.name = name;
 	this.color = color;
-	this.freehit=0;
+	this.freehit=1;
 	this.usefreehit=0;
-	this.blockcard=0;
-	this.skipcard = 0;
+	this.blockcard=1;
+	this.skipcard = 1;
 	this.position = 0;
 	this.money = 60;
 	this.creditor = -1;
@@ -2415,13 +2415,14 @@ function buy()
 		$.ajax({
               type:'POST',
               url: "/foo",
-              dataType:"text",
+              contentType: "application/json",
+              data: JSON.stringify({"level":skiplevel}),
               success: function(response){
-                //  console.log(response);
+                console.log(response.message);
 				//  alert(response);
-				var result = JSON.parse(response);
-				console.log(result.message);
-				if(result.message === 1)
+				// var result = JSON.parse(response);
+				// console.log(result.message);
+				if(response.message === 1)
 				{
 					if(property.owner)
 					{
@@ -2489,13 +2490,14 @@ function buy()
 		$.ajax({
               type:'POST',
               url: "/foo",
-              dataType:"text",
+			  contentType: "application/json",
+              data: JSON.stringify({"level":property.level}),
               success: function(response){
                 //  console.log(response);
 				//  alert(response);
-				var result = JSON.parse(response);
-				console.log(result.message);
-				if(result.message === 1)
+				// var result = JSON.parse(response);
+				// console.log(result.message);
+				if(response.message === 1)
 				{
 					if(property.owner)
 					{
@@ -2639,6 +2641,7 @@ function skipbutton()
 		document.getElementById("landed").innerHTML += "<div> Skip to Medium Level question <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipmed();' value='Skip to Medium ' title='Skip Medium " + ".'/></div>";
 	if(sq.level < 2)
 		document.getElementById("landed").innerHTML += "<div> Skip to Hard Level question <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skiphard();' value='Skip to Hard ' title='Skip Hard " + ".'/></div>";
+	document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 		
 }
 
@@ -2670,7 +2673,8 @@ function solve()
 				console.log(response);
 				// return result_py;
               }
-		  });	
+		  });
+		  	
 	}
 	else
 	{

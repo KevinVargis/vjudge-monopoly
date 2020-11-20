@@ -18,7 +18,11 @@ def login(quesno,diff):
     # quesno = 5
     # # question number 
 
-    diff=2-diff
+    # diff=2-diff
+    if diff == 1 :
+        diff = 2
+    elif diff == 2:
+        diff = 1
     driverLocation = './chromedriver' #if windows
     browser = webdriver.Chrome(driverLocation) 
     browser.get(('https://vjudge.net/contest'))

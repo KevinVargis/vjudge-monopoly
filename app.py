@@ -12,7 +12,9 @@ def index():
 
 @app.route('/foo', methods=['POST'])
 def foo():
-    answer = checker.check()
+    data = request.get_json()
+    answer = checker.check(data["level"])
+    print(answer)
     return jsonify({"message": answer})
 
 @app.route('/bar', methods=['POST', 'GET'])
