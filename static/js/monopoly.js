@@ -1128,10 +1128,10 @@ var game;
 function Player(name, color) {
 	this.name = name;
 	this.color = color;
-	this.freehit=1;
+	this.freehit=0;
 	this.usefreehit=0;
-	this.blockcard=1;
-	this.skipcard = 1;
+	this.blockcard=0;
+	this.skipcard = 0;
 	this.position = 0;
 	this.money = 60;
 	this.creditor = -1;
@@ -2659,6 +2659,8 @@ function solve()
 		game.next();
 	}
 	else if(skipuse===1){
+	$("#nextbutton").hide();
+	document.getElementById("landed").innerHTML = "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 	$.ajax({
               type:'POST',
 			  url: "/bar",
@@ -2678,6 +2680,8 @@ function solve()
 	}
 	else
 	{
+		$("#nextbutton").hide();
+		document.getElementById("landed").innerHTML = "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 		$.ajax({
 			type:'POST',
 			url: "/bar",
@@ -2697,6 +2701,7 @@ function solve()
 }
 
 function land(increasedRent) {
+	$("#nextbutton").hide();
 	increasedRent = !!increasedRent; // Cast increasedRent to a boolean value. It is used for the ADVANCE TO THE NEAREST RAILROAD/UTILITY Chance cards.
 
 	var p = player[turn];
@@ -2730,7 +2735,6 @@ function land(increasedRent) {
 
 			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass  ' title='Pass " + s.name + ".'/></div>";
-			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " +p.freehit+ " available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 			if(p.skipcard > 0 && s.level < 2)
@@ -2811,7 +2815,6 @@ function land(increasedRent) {
 		{
 			document.getElementById("landed").innerHTML = "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass and pay (" + reward[s.level-1]/8 + ")' title='Pass " + s.name + " for " + reward[s.level-1]/8 + ".'/></div>";
-			document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 			if (p.freehit>0)
 				document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 
@@ -2830,7 +2833,6 @@ function land(increasedRent) {
 	{
 		document.getElementById("landed").innerHTML += "<div>You landed on <a href='javascript:void(0);' onmouseover='showdeed(" + p.position + ");' onmouseout='hidedeed();' class='statscellcolor'>" + s.name + "</a>.<input type='button' onclick='solve();' value='Solve for (" + s.price + ")' title='Solve " + s.name + " for " + s.pricetext + ".'/></div>";
 		document.getElementById("landed").innerHTML += "<div><input type='button' onclick='pass();' value='Pass' title='Pass " + s.name  +  ".'/></div>";
-		document.getElementById("landed").innerHTML += "<div><input type='button' onclick='buy();' value='Verify Result ' title='Verify Result " + s.name + ".'/></div>";
 		if (p.freehit>0)
 			document.getElementById("landed").innerHTML += "<div> You have " + p.freehit +" available free hit cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='freehitbutton();' value='Use Free Hit ' title='Free Hit " + ".'/></div>";
 
