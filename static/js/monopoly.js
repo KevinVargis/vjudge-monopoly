@@ -329,325 +329,6 @@ function Game() {
 		return true;
 	};
 
-	// document.getElementById("trade-leftp-money").onkeydown = tradeMoneyOnKeyDown;
-	// document.getElementById("trade-rightp-money").onkeydown = tradeMoneyOnKeyDown;
-	// document.getElementById("trade-leftp-money").onfocus = tradeMoneyOnFocus;
-	// document.getElementById("trade-rightp-money").onfocus = tradeMoneyOnFocus;
-	// document.getElementById("trade-leftp-money").onchange = tradeMoneyOnChange;
-	// document.getElementById("trade-rightp-money").onchange = tradeMoneyOnChange;
-
-	// var resetTrade = function(initiator, recipient, allowRecipientToBeChanged) {
-	// 	var currentSquare;
-	// 	var currentTableRow;
-	// 	var currentTableCell;
-	// 	var currentTableCellCheckbox;
-	// 	var nameSelect;
-	// 	var currentOption;
-	// 	var allGroupUninproved;
-	// 	var currentName;
-
-	// 	var tableRowOnClick = function(e) {
-	// 		var checkboxElement = this.firstChild.firstChild;
-
-	// 		if (checkboxElement !== e.srcElement) {
-	// 			checkboxElement.checked = !checkboxElement.checked;
-	// 		}
-
-	// 		$("#proposetradebutton").show();
-	// 		$("#canceltradebutton").show();
-	// 		$("#accepttradebutton").hide();
-	// 		$("#rejecttradebutton").hide();
-	// 	};
-
-	// 	var initiatorProperty = document.getElementById("trade-leftp-property");
-	// 	var recipientProperty = document.getElementById("trade-rightp-property");
-
-	// 	currentInitiator = initiator;
-	// 	currentRecipient = recipient;
-
-	// 	// Empty elements.
-	// 	while (initiatorProperty.lastChild) {
-	// 		initiatorProperty.removeChild(initiatorProperty.lastChild);
-	// 	}
-
-	// 	while (recipientProperty.lastChild) {
-	// 		recipientProperty.removeChild(recipientProperty.lastChild);
-	// 	}
-
-	// 	var initiatorSideTable = document.createElement("table");
-	// 	var recipientSideTable = document.createElement("table");
-
-
-	// 	for (var i = 0; i < 40; i++) {
-	// 		currentSquare = square[i];
-
-	// 		// A property cannot be traded if any properties in its group have been improved.
-	// 		if (currentSquare.house > 0 || currentSquare.groupNumber === 0) {
-	// 			continue;
-	// 		}
-
-	// 		allGroupUninproved = true;
-	// 		var max = currentSquare.group.length;
-	// 		for (var j = 0; j < max; j++) {
-
-	// 			if (square[currentSquare.group[j]].house > 0) {
-	// 				allGroupUninproved = false;
-	// 				break;
-	// 			}
-	// 		}
-
-	// 		if (!allGroupUninproved) {
-	// 			continue;
-	// 		}
-
-	// 		// Offered properties.
-	// 		if (currentSquare.owner === initiator.index) {
-	// 			currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-	// 			currentTableRow.onclick = tableRowOnClick;
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellcheckbox";
-	// 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 			currentTableCellCheckbox.type = "checkbox";
-	// 			currentTableCellCheckbox.id = "tradeleftcheckbox" + i;
-	// 			currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellcolor";
-	// 			currentTableCell.style.backgroundColor = currentSquare.color;
-
-	// 			if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
-	// 				currentTableCell.style.borderColor = "grey";
-	// 			} else {
-	// 				currentTableCell.style.borderColor = currentSquare.color;
-	// 			}
-
-	// 			currentTableCell.propertyIndex = i;
-	// 			currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
-	// 			currentTableCell.onmouseout = hidedeed;
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellname";
-	// 			if (currentSquare.mortgage) {
-	// 				currentTableCell.title = "Mortgaged";
-	// 				currentTableCell.style.color = "grey";
-	// 			}
-	// 			currentTableCell.textContent = currentSquare.name;
-
-	// 		// Requested properties.
-	// 		} else if (currentSquare.owner === recipient.index) {
-	// 			currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-	// 			currentTableRow.onclick = tableRowOnClick;
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellcheckbox";
-	// 			currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 			currentTableCellCheckbox.type = "checkbox";
-	// 			currentTableCellCheckbox.id = "traderightcheckbox" + i;
-	// 			currentTableCellCheckbox.title = "Check this box to include " + currentSquare.name + " in the trade.";
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellcolor";
-	// 			currentTableCell.style.backgroundColor = currentSquare.color;
-
-	// 			if (currentSquare.groupNumber == 1 || currentSquare.groupNumber == 2) {
-	// 				currentTableCell.style.borderColor = "grey";
-	// 			} else {
-	// 				currentTableCell.style.borderColor = currentSquare.color;
-	// 			}
-
-	// 			currentTableCell.propertyIndex = i;
-	// 			currentTableCell.onmouseover = function() {showdeed(this.propertyIndex);};
-	// 			currentTableCell.onmouseout = hidedeed;
-
-	// 			currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 			currentTableCell.className = "propertycellname";
-	// 			if (currentSquare.mortgage) {
-	// 				currentTableCell.title = "Mortgaged";
-	// 				currentTableCell.style.color = "grey";
-	// 			}
-	// 			currentTableCell.textContent = currentSquare.name;
-	// 		}
-	// 	}
-
-	// 	if (initiator.communityChestJailCard) {
-	// 		currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-	// 		currentTableRow.onclick = tableRowOnClick;
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcheckbox";
-	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 		currentTableCellCheckbox.type = "checkbox";
-	// 		currentTableCellCheckbox.id = "tradeleftcheckbox40";
-	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcolor";
-	// 		currentTableCell.style.backgroundColor = "white";
-	// 		currentTableCell.style.borderColor = "grey";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellname";
-
-	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
-	// 	} else if (recipient.communityChestJailCard) {
-	// 		currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-	// 		currentTableRow.onclick = tableRowOnClick;
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcheckbox";
-	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 		currentTableCellCheckbox.type = "checkbox";
-	// 		currentTableCellCheckbox.id = "traderightcheckbox40";
-	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcolor";
-	// 		currentTableCell.style.backgroundColor = "white";
-	// 		currentTableCell.style.borderColor = "grey";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellname";
-
-	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
-	// 	}
-
-	// 	if (initiator.chanceJailCard) {
-	// 		currentTableRow = initiatorSideTable.appendChild(document.createElement("tr"));
-	// 		currentTableRow.onclick = tableRowOnClick;
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcheckbox";
-	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 		currentTableCellCheckbox.type = "checkbox";
-	// 		currentTableCellCheckbox.id = "tradeleftcheckbox41";
-	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcolor";
-	// 		currentTableCell.style.backgroundColor = "white";
-	// 		currentTableCell.style.borderColor = "grey";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellname";
-
-	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
-	// 	} else if (recipient.chanceJailCard) {
-	// 		currentTableRow = recipientSideTable.appendChild(document.createElement("tr"));
-	// 		currentTableRow.onclick = tableRowOnClick;
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcheckbox";
-	// 		currentTableCellCheckbox = currentTableCell.appendChild(document.createElement("input"));
-	// 		currentTableCellCheckbox.type = "checkbox";
-	// 		currentTableCellCheckbox.id = "traderightcheckbox41";
-	// 		currentTableCellCheckbox.title = "Check this box to include this Get Out of Jail Free Card in the trade.";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellcolor";
-	// 		currentTableCell.style.backgroundColor = "white";
-	// 		currentTableCell.style.borderColor = "grey";
-
-	// 		currentTableCell = currentTableRow.appendChild(document.createElement("td"));
-	// 		currentTableCell.className = "propertycellname";
-
-	// 		currentTableCell.textContent = "Get Out of Jail Free Card";
-	// 	}
-
-	// 	if (initiatorSideTable.lastChild) {
-	// 		initiatorProperty.appendChild(initiatorSideTable);
-	// 	} else {
-	// 		initiatorProperty.textContent = initiator.name + " has no properties to trade.";
-	// 	}
-
-	// 	if (recipientSideTable.lastChild) {
-	// 		recipientProperty.appendChild(recipientSideTable);
-	// 	} else {
-	// 		recipientProperty.textContent = recipient.name + " has no properties to trade.";
-	// 	}
-
-	// 	document.getElementById("trade-leftp-name").textContent = initiator.name;
-
-	// 	currentName = document.getElementById("trade-rightp-name");
-
-	// 	if (allowRecipientToBeChanged && pcount > 2) {
-	// 		// Empty element.
-	// 		while (currentName.lastChild) {
-	// 			currentName.removeChild(currentName.lastChild);
-	// 		}
-
-	// 		nameSelect = currentName.appendChild(document.createElement("select"));
-	// 		for (var i = 1; i <= pcount; i++) {
-	// 			if (i === initiator.index) {
-	// 				continue;
-	// 			}
-
-	// 			currentOption = nameSelect.appendChild(document.createElement("option"));
-	// 			currentOption.value = i + "";
-	// 			currentOption.style.color = player[i].color;
-	// 			currentOption.textContent = player[i].name;
-
-	// 			if (i === recipient.index) {
-	// 				currentOption.selected = "selected";
-	// 			}
-	// 		}
-
-	// 		nameSelect.onchange = function() {
-	// 			resetTrade(currentInitiator, player[parseInt(this.value, 10)], true);
-	// 		};
-
-	// 		nameSelect.title = "Select a player to trade with.";
-	// 	} else {
-	// 		currentName.textContent = recipient.name;
-	// 	}
-
-	// 	document.getElementById("trade-leftp-money").value = "0";
-	// 	document.getElementById("trade-rightp-money").value = "0";
-
-	// };
-
-	// var readTrade = function() {
-	// 	var initiator = currentInitiator;
-	// 	var recipient = currentRecipient;
-	// 	var property = new Array(40);
-	// 	var money;
-	// 	var communityChestJailCard;
-	// 	var chanceJailCard;
-
-	// 	for (var i = 0; i < 40; i++) {
-
-	// 		if (document.getElementById("tradeleftcheckbox" + i) && document.getElementById("tradeleftcheckbox" + i).checked) {
-	// 			property[i] = 1;
-	// 		} else if (document.getElementById("traderightcheckbox" + i) && document.getElementById("traderightcheckbox" + i).checked) {
-	// 			property[i] = -1;
-	// 		} else {
-	// 			property[i] = 0;
-	// 		}
-	// 	}
-
-	// 	if (document.getElementById("tradeleftcheckbox40") && document.getElementById("tradeleftcheckbox40").checked) {
-	// 		communityChestJailCard = 1;
-	// 	} else if (document.getElementById("traderightcheckbox40") && document.getElementById("traderightcheckbox40").checked) {
-	// 		communityChestJailCard = -1;
-	// 	} else {
-	// 		communityChestJailCard = 0;
-	// 	}
-
-	// 	if (document.getElementById("tradeleftcheckbox41") && document.getElementById("tradeleftcheckbox41").checked) {
-	// 		chanceJailCard = 1;
-	// 	} else if (document.getElementById("traderightcheckbox41") && document.getElementById("traderightcheckbox41").checked) {
-	// 		chanceJailCard = -1;
-	// 	} else {
-	// 		chanceJailCard = 0;
-	// 	}
-
-	// 	money = parseInt(document.getElementById("trade-leftp-money").value, 10) || 0;
-	// 	money -= parseInt(document.getElementById("trade-rightp-money").value, 10) || 0;
-
-	// 	// var trade = new Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard);
-
-	// 	return trade;
-	// };
 
 	var writeTrade = function(tradeObj) {
 		// resetTrade(tradeObj.getInitiator(), tradeObj.getRecipient(), false);
@@ -709,162 +390,6 @@ function Game() {
 
 	};
 
-	// this.trade = function(tradeObj) {
-	// 	$("#board").hide();
-	// 	$("#control").hide();
-	// 	$("#trade").show();
-	// 	$("#proposetradebutton").show();
-	// 	$("#canceltradebutton").show();
-	// 	$("#accepttradebutton").hide();
-	// 	$("#rejecttradebutton").hide();
-
-	// 	if (tradeObj instanceof Trade) {
-	// 		// writeTrade(tradeObj);
-	// 		// this.proposeTrade();
-	// 	} else {
-	// 		var initiator = player[turn];
-	// 		var recipient = turn === 1 ? player[2] : player[1];
-
-	// 		currentInitiator = initiator;
-	// 		currentRecipient = recipient;
-
-	// 		// resetTrade(initiator, recipient, true);
-	// 	}
-	// };
-
-
-	// this.cancelTrade = function() {
-	// 	$("#board").show();
-	// 	$("#control").show();
-	// 	$("#trade").hide();
-
-
-	// 	if (!player[turn].human) {
-	// 		player[turn].AI.alertList = "";
-	// 		game.next();
-	// 	}
-
-	// };
-
-	// this.acceptTrade = function(tradeObj) {
-	// 	if (isNaN(document.getElementById("trade-leftp-money").value)) {
-	// 		document.getElementById("trade-leftp-money").value = "This value must be a number.";
-	// 		document.getElementById("trade-leftp-money").style.color = "red";
-	// 		return false;
-	// 	}
-
-	// 	if (isNaN(document.getElementById("trade-rightp-money").value)) {
-	// 		document.getElementById("trade-rightp-money").value = "This value must be a number.";
-	// 		document.getElementById("trade-rightp-money").style.color = "red";
-	// 		return false;
-	// 	}
-
-	// 	var showAlerts = true;
-	// 	var money;
-	// 	var initiator;
-	// 	var recipient;
-
-	// 	if (tradeObj) {
-	// 		showAlerts = false;
-	// 	} else {
-	// 		// tradeObj = readTrade();
-	// 	}
-
-	// 	money = tradeObj.getMoney();
-	// 	initiator = tradeObj.getInitiator();
-	// 	recipient = tradeObj.getRecipient();
-
-
-	// 	if (money > 0 && money > initiator.money) {
-	// 		document.getElementById("trade-leftp-money").value = initiator.name + " does not have $" + money + ".";
-	// 		document.getElementById("trade-leftp-money").style.color = "red";
-	// 		return false;
-	// 	} else if (money < 0 && -money > recipient.money) {
-	// 		document.getElementById("trade-rightp-money").value = recipient.name + " does not have $" + (-money) + ".";
-	// 		document.getElementById("trade-rightp-money").style.color = "red";
-	// 		return false;
-	// 	}
-
-	// 	var isAPropertySelected = 0;
-
-	// 	// Ensure that some properties are selected.
-	// 	for (var i = 0; i < 40; i++) {
-	// 		isAPropertySelected |= tradeObj.getProperty(i);
-	// 	}
-
-	// 	isAPropertySelected |= tradeObj.getCommunityChestJailCard();
-	// 	isAPropertySelected |= tradeObj.getChanceJailCard();
-
-	// 	if (isAPropertySelected === 0) {
-	// 		popup("<p>One or more properties must be selected in order to trade.</p>");
-
-	// 		return false;
-	// 	}
-
-	// 	if (showAlerts && !confirm(initiator.name + ", are you sure you want to make this exchange with " + recipient.name + "?")) {
-	// 		return false;
-	// 	}
-
-	// 	// Exchange properties
-	// 	for (var i = 0; i < 40; i++) {
-
-	// 		if (tradeObj.getProperty(i) === 1) {
-	// 			square[i].owner = recipient.index;
-	// 			addAlert(recipient.name + " received " + square[i].name + " from " + initiator.name + ".");
-	// 		} else if (tradeObj.getProperty(i) === -1) {
-	// 			square[i].owner = initiator.index;
-	// 			addAlert(initiator.name + " received " + square[i].name + " from " + recipient.name + ".");
-	// 		}
-
-	// 	}
-
-	// 	if (tradeObj.getCommunityChestJailCard() === 1) {
-	// 		initiator.communityChestJailCard = false;
-	// 		recipient.communityChestJailCard = true;
-	// 		addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
-	// 	} else if (tradeObj.getCommunityChestJailCard() === -1) {
-	// 		initiator.communityChestJailCard = true;
-	// 		recipient.communityChestJailCard = false;
-	// 		addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
-	// 	}
-
-	// 	if (tradeObj.getChanceJailCard() === 1) {
-	// 		initiator.chanceJailCard = false;
-	// 		recipient.chanceJailCard = true;
-	// 		addAlert(recipient.name + ' received a "Get Out of Jail Free" card from ' + initiator.name + ".");
-	// 	} else if (tradeObj.getChanceJailCard() === -1) {
-	// 		initiator.chanceJailCard = true;
-	// 		recipient.chanceJailCard = false;
-	// 		addAlert(initiator.name + ' received a "Get Out of Jail Free" card from ' + recipient.name + ".");
-	// 	}
-
-	// 	// Exchange money.
-	// 	if (money > 0) {
-	// 		initiator.pay(money, recipient.index);
-	// 		recipient.money += money;
-
-	// 		addAlert(recipient.name + " received $" + money + " from " + initiator.name + ".");
-	// 	} else if (money < 0) {
-	// 		money = -money;
-
-	// 		recipient.pay(money, initiator.index);
-	// 		initiator.money += money;
-
-	// 		addAlert(initiator.name + " received $" + money + " from " + recipient.name + ".");
-	// 	}
-
-	// 	updateOwned();
-	// 	updateMoney();
-
-	// 	$("#board").show();
-	// 	$("#control").show();
-	// 	$("#trade").hide();
-
-	// 	if (!player[turn].human) {
-	// 		player[turn].AI.alertList = "";
-	// 		game.next();
-	// 	}
-	// };
 
 	this.proposeTrade = function() {
 		if (isNaN(document.getElementById("trade-leftp-money").value)) {
@@ -1071,54 +596,6 @@ function Game() {
 		updateMoney();
 		game.eliminatePlayer();
 
-		// if (p.creditor !== 0) {
-		// 	pcredit.money += p.money;
-		// }
-
-		// for (var i = 0; i < 40; i++) {
-		// 	sq = square[i];
-		// 	if (sq.owner == p.index) {
-		// 		// Mortgaged properties will be tranfered by bankruptcyUnmortgage();
-		// 		if (!sq.mortgage) {
-		// 			sq.owner = p.creditor;
-		// 		} else {
-		// 			bankruptcyUnmortgageFee += Math.round(sq.price * 0.1);
-		// 		}
-
-		// 		if (sq.house > 0) {
-		// 			if (p.creditor !== 0) {
-		// 				pcredit.money += sq.houseprice * 0.5 * sq.house;
-		// 			}
-		// 			sq.hotel = 0;
-		// 			sq.house = 0;
-		// 		}
-
-		// 		if (p.creditor === 0) {
-		// 			sq.mortgage = false;
-		// 			game.addPropertyToAuctionQueue(i);
-		// 			sq.owner = 0;
-		// 		}
-		// 	}
-		// }
-
-		// 
-
-		// if (p.chanceJailCard) {
-		// 	p.chanceJailCard = false;
-		// 	pcredit.chanceJailCard = true;
-		// }
-
-		// if (p.communityChestJailCard) {
-		// 	p.communityChestJailCard = false;
-		// 	pcredit.communityChestJailCard = true;
-		// }
-
-		// if (pcount === 2 || bankruptcyUnmortgageFee === 0 || p.creditor === 0) {
-		// 	game.eliminatePlayer();
-		// } else {
-		// 	addAlert(pcredit.name + " paid $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties received from " + p.name + ".");
-		// 	popup("<p>" + pcredit.name + ", you must pay $" + bankruptcyUnmortgageFee + " interest on the mortgaged properties you received from " + p.name + ".</p>", function() {player[pcredit.index].pay(bankruptcyUnmortgageFee, 0); game.bankruptcyUnmortgage();});
-		// }
 	};
 
 }
@@ -1161,41 +638,7 @@ function Player(name, color) {
 	};
 }
 
-// paramaters:
-// initiator: object Player
-// recipient: object Player
-// money: integer, positive for offered, negative for requested
-// property: array of integers, length: 40
-// communityChestJailCard: integer, 1 means offered, -1 means requested, 0 means neither
-// chanceJailCard: integer, 1 means offered, -1 means requested, 0 means neither
 
-// function Trade(initiator, recipient, money, property, communityChestJailCard, chanceJailCard) {
-// 	// For each property and get out of jail free cards, 1 means offered, -1 means requested, 0 means neither.
-
-// 	this.getInitiator = function() {
-// 		return initiator;
-// 	};
-
-// 	this.getRecipient = function() {
-// 		return recipient;
-// 	};
-
-// 	this.getProperty = function(index) {
-// 		return property[index];
-// 	};
-
-// 	this.getMoney = function() {
-// 		return money;
-// 	};
-
-// 	this.getCommunityChestJailCard = function() {
-// 		return communityChestJailCard;
-// 	};
-
-// 	this.getChanceJailCard = function() {
-// 		return chanceJailCard;
-// 	};
-// }
 
 var player = [];
 var pcount;
@@ -1219,27 +662,6 @@ Array.prototype.randomize = function(length) {
 	}
 };
 
-// function show(element) {
-	// // Element may be an HTML element or the id of one passed as a string.
-	// if (element.constructor == String) {
-		// element = document.getElementById(element);
-	// }
-
-	// if (element.tagName == "INPUT" || element.tagName == "SPAN" || element.tagName == "LABEL") {
-		// element.style.display = "inline";
-	// } else {
-		// element.style.display = "block";
-	// }
-// }
-
-// function hide(element) {
-	// // Element may be an HTML element or the id of one passed as a string.
-	// if (element.constructor == String) {
-		// document.getElementById(element).style.display = "none";
-	// } else {
-		// element.style.display = "none";
-	// }
-// }
 
 function addAlert(alertText) {
 	$alert = $("#alert");
@@ -1511,19 +933,6 @@ function updateOwned() {
 		sq = square[i];
 		if (sq.owner == turn) {
 
-			// mortgagetext = "";
-			// if (sq.mortgage) {
-			// 	mortgagetext = "title='Mortgaged' style='color: grey;'";
-			// }
-
-			// housetext = "";
-			// if (sq.house >= 1 && sq.house <= 4) {
-			// 	for (var x = 1; x <= sq.house; x++) {
-			// 		housetext += "<img src='static/house.png' alt='' title='House' class='house' />";
-			// 	}
-			// } else if (sq.hotel) {
-			// 	housetext += "<img src='static/hotel.png' alt='' title='Hotel' class='hotel' />";
-			// }
 
 			if (HTML === "") {
 				HTML += "<table>";
@@ -1563,190 +972,13 @@ function updateOwned() {
 		HTML += "</table>";
 	}
 
-	//document.getElementById("owned").innerHTML = HTML;
 
-	// Select previously selected property.
-	// if (checkedproperty > -1 && document.getElementById("propertycheckbox" + checkedproperty)) {
-	// 	document.getElementById("propertycheckbox" + checkedproperty).checked = true;
-	// } else if (firstproperty > -1) {
-	// 	document.getElementById("propertycheckbox" + firstproperty).checked = true;
-	// }
-	// $(".property-cell-row").click(function() {
-	// 	var row = this;
-
-	// 	// Toggle check the current checkbox.
-	// 	$(this).find(".propertycellcheckbox > input").prop("checked", function(index, val) {
-	// 		return !val;
-	// 	});
-
-	// 	// Set all other checkboxes to false.
-	// 	$(".propertycellcheckbox > input").prop("checked", function(index, val) {
-	// 		if (!$.contains(row, this)) {
-	// 			return false;
-	// 		}
-	// 	});
-
-	// 	updateOption();
-	// });
-	// updateOption();
 }
 
 function updateOption() {
 	$("#option").show();
 
-	// var allGroupUninproved = true;
-	// var allGroupUnmortgaged = true;
-	// var checkedproperty = getCheckedProperty();
 
-	// if (checkedproperty < 0 || checkedproperty >= 40) {
-	// 	$("#buyhousebutton").hide();
-	// 	$("#sellhousebutton").hide();
-	// 	$("#mortgagebutton").hide();
-
-
-	// 	var housesum = 32;
-	// 	var hotelsum = 12;
-
-	// 	for (var i = 0; i < 40; i++) {
-	// 		s = square[i];
-	// 		if (s.hotel == 1)
-	// 			hotelsum--;
-	// 		else
-	// 			housesum -= s.house;
-	// 	}
-
-	// 	$("#buildings").show();
-	// 	document.getElementById("buildings").innerHTML = "<img src='static/house.png' alt='' title='House' class='house' />:&nbsp;" + housesum + "&nbsp;&nbsp;<img src='static/hotel.png' alt='' title='Hotel' class='hotel' />:&nbsp;" + hotelsum;
-
-	// 	return;
-	// }
-
-	// $("#buildings").hide();
-	// var sq = square[checkedproperty];
-
-	// buyhousebutton = document.getElementById("buyhousebutton");
-	// sellhousebutton = document.getElementById("sellhousebutton");
-
-	// $("#mortgagebutton").show();
-	// document.getElementById("mortgagebutton").disabled = false;
-
-	// if (sq.mortgage) {
-	// 	document.getElementById("mortgagebutton").value = "Unmortgage ($" + Math.round(sq.price * 0.6) + ")";
-	// 	document.getElementById("mortgagebutton").title = "Unmortgage " + sq.name + " for $" + Math.round(sq.price * 0.6) + ".";
-	// 	$("#buyhousebutton").hide();
-	// 	$("#sellhousebutton").hide();
-
-	// 	allGroupUnmortgaged = false;
-	// } else {
-	// 	document.getElementById("mortgagebutton").value = "Mortgage ($" + (sq.price * 0.5) + ")";
-	// 	document.getElementById("mortgagebutton").title = "Mortgage " + sq.name + " for $" + (sq.price * 0.5) + ".";
-
-	// 	if (sq.groupNumber >= 3) {
-	// 		$("#buyhousebutton").show();
-	// 		$("#sellhousebutton").show();
-	// 		buyhousebutton.disabled = false;
-	// 		sellhousebutton.disabled = false;
-
-	// 		buyhousebutton.value = "Buy house ($" + sq.houseprice + ")";
-	// 		sellhousebutton.value = "Sell house ($" + (sq.houseprice * 0.5) + ")";
-	// 		buyhousebutton.title = "Buy a house for $" + sq.houseprice;
-	// 		sellhousebutton.title = "Sell a house for $" + (sq.houseprice * 0.5);
-
-	// 		if (sq.house == 4) {
-	// 			buyhousebutton.value = "Buy hotel ($" + sq.houseprice + ")";
-	// 			buyhousebutton.title = "Buy a hotel for $" + sq.houseprice;
-	// 		}
-	// 		if (sq.hotel == 1) {
-	// 			$("#buyhousebutton").hide();
-	// 			sellhousebutton.value = "Sell hotel ($" + (sq.houseprice * 0.5) + ")";
-	// 			sellhousebutton.title = "Sell a hotel for $" + (sq.houseprice * 0.5);
-	// 		}
-
-	// 		var maxhouse = 0;
-	// 		var minhouse = 5;
-
-	// 		for (var j = 0; j < max; j++) {
-
-	// 			if (square[currentSquare.group[j]].house > 0) {
-	// 				allGroupUninproved = false;
-	// 				break;
-	// 			}
-	// 		}
-
-	// 		var max = sq.group.length;
-	// 		for (var i = 0; i < max; i++) {
-	// 			s = square[sq.group[i]];
-
-	// 			if (s.owner !== sq.owner) {
-	// 				buyhousebutton.disabled = true;
-	// 				sellhousebutton.disabled = true;
-	// 				buyhousebutton.title = "Before you can buy a house, you must own all the properties of this color-group.";
-	// 			} else {
-
-	// 				if (s.house > maxhouse) {
-	// 					maxhouse = s.house;
-	// 				}
-
-	// 				if (s.house < minhouse) {
-	// 					minhouse = s.house;
-	// 				}
-
-	// 				if (s.house > 0) {
-	// 					allGroupUninproved = false;
-	// 				}
-
-	// 				if (s.mortgage) {
-	// 					allGroupUnmortgaged = false;
-	// 				}
-	// 			}
-	// 		}
-
-	// 		if (!allGroupUnmortgaged) {
-	// 			buyhousebutton.disabled = true;
-	// 			buyhousebutton.title = "Before you can buy a house, you must unmortgage all the properties of this color-group.";
-	// 		}
-
-	// 		// Force even building
-	// 		if (sq.house > minhouse) {
-	// 			buyhousebutton.disabled = true;
-
-	// 			if (sq.house == 1) {
-	// 				buyhousebutton.title = "Before you can buy another house, the other properties of this color-group must all have one house.";
-	// 			} else if (sq.house == 4) {
-	// 				buyhousebutton.title = "Before you can buy a hotel, the other properties of this color-group must all have 4 houses.";
-	// 			} else {
-	// 				buyhousebutton.title = "Before you can buy a house, the other properties of this color-group must all have " + sq.house + " houses.";
-	// 			}
-	// 		}
-	// 		if (sq.house < maxhouse) {
-	// 			sellhousebutton.disabled = true;
-
-	// 			if (sq.house == 1) {
-	// 				sellhousebutton.title = "Before you can sell house, the other properties of this color-group must all have one house.";
-	// 			} else {
-	// 				sellhousebutton.title = "Before you can sell a house, the other properties of this color-group must all have " + sq.house + " houses.";
-	// 			}
-	// 		}
-
-	// 		if (sq.house === 0 && sq.hotel === 0) {
-	// 			$("#sellhousebutton").hide();
-
-	// 		} else {
-	// 			$("#mortgagebutton").hide();
-
-	// 		}
-
-	// 		// Before a property can be mortgaged or sold, all the properties of its color-group must unimproved.
-	// 		if (!allGroupUninproved) {
-	// 			document.getElementById("mortgagebutton").title = "Before a property can be mortgaged, all the properties of its color-group must unimproved.";
-	// 			document.getElementById("mortgagebutton").disabled = true;
-	// 		}
-
-	// 	} else {
-	// 		$("#buyhousebutton").hide();
-	// 		$("#sellhousebutton").hide();
-	// 	}
-	// }
 }
 
 function chanceCommunityChest() {
@@ -2234,27 +1466,7 @@ function showdeed(property) {
 			document.getElementById("difficulty-level").textContent = stages[sq.level-1];
 			document.getElementById("deed-points").textContent = reward[sq.level-1];
 			
-			// document.getElementById("deed-baserent").textContent = sq.baserent;
-			// document.getElementById("deed-rent1").textContent = sq.rent1;
-			// document.getElementById("deed-rent2").textContent = sq.rent2;
-			// document.getElementById("deed-rent3").textContent = sq.rent3;
-			// document.getElementById("deed-rent4").textContent = sq.rent4;
-			// document.getElementById("deed-rent5").textContent = sq.rent5;
-			// document.getElementById("deed-mortgage").textContent = (sq.price / 2);
-			// document.getElementById("deed-houseprice").textContent = sq.houseprice;
-			// document.getElementById("deed-hotelprice").textContent = sq.houseprice;
-
-		// } else if (sq.groupNumber == 2) {
-		// 	$("#deed-special").show();
-		// 	document.getElementById("deed-special-name").textContent = sq.name;
-		// 	document.getElementById("deed-special-text").innerHTML = utiltext();
-		// 	document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
-
-		// } else if (sq.groupNumber == 1) {
-		// 	$("#deed-special").show();
-		// 	document.getElementById("deed-special-name").textContent = sq.name;
-		// 	document.getElementById("deed-special-text").innerHTML = transtext();
-		// 	document.getElementById("deed-special-mortgage").textContent = (sq.price / 2);
+		
 		// }
 	
 }
@@ -2282,120 +1494,11 @@ function ajaxtest()
 	});
 }
 
-// function buy() 
-// {
-// 	ajaxtest();
-// 	var p = player[turn];
-// 	var property = square[p.position];
-// 	var cost = property.price;
 
-// 	if(property.blocked ===1 && p.index!=property.owner)
-// 	{
-// 		addAlert(property.owner + " has used a Block Square card on this question, hard luck! ");
-// 		property.blocked--;
-// 		updateMoney();
-// 		updateOwned();
-// 	}
-
-// 	else if(skipuse === 1)
-// 	{
-// 		var result = Math.floor(Math.random() * 2);
-// 		//var result = 0;
-		
-// 		if(result === 1)
-// 		{
-// 			if(property.owner)
-// 			{
-// 				var temp = player[property.owner];
-// 				temp.money -= reward[property.level-1];
-// 				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
-// 			}
-// 			addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
-// 			p.money += reward[skiplevel];
-// 			property.level = skiplevel + 1;
-// 			property.updateSquare();
-// 			property.owner = turn;		
-// 		}
-// 		else
-// 		{
-// 			if(p.usefreehit === 1)
-// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
-// 			else
-// 			{
-// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
-// 				p.money -= reward[skiplevel]/4;
-// 			}
-// 		}
-// 		skipuse = -1;
-// 		skiplevel = -1;
-// 	}
-
-// 	else
-// 	{
-// 		var result = Math.floor(Math.random() * 2);
-// 		//var result = 0;
-
-// 		if(result === 1)
-// 		{
-// 			if(property.owner)
-// 			{
-// 				var temp = player[property.owner];
-// 				temp.money -= reward[property.level-1];
-// 				addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
-// 			}
-// 			addAlert(p.name + " solved " + property.name + " on level " + stages[property.level] +" and received " + property.pricetext + " points.");
-// 			p.money += reward[property.level];
-// 			property.level++;
-// 			property.updateSquare();
-// 			property.owner = turn;		
-// 		}
-// 		else
-// 		{
-// 			if(p.usefreehit === 1)
-// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
-// 			else
-// 			{
-// 				addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" and lost " + reward[property.level]/4 + " points.");
-// 				p.money -= reward[property.level]/4;
-// 			}
-// 		}
-// 	}
-// 	updateMoney();
-// 	updateOwned();
-// 	p.usefreehit=0;
-// 	game.next();
-// 	// if (p.money >= cost) {
-// 	// 	p.pay(cost, 0);
-
-// 	// 	property.owner = turn;
-// 	// 	updateMoney();
-// 	// 	addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
-
-// 	// 	updateOwned();
-
-// 	// 	$("#landed").hide();
-
-// 	// } else {
-// 	// 	popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
-// 	// }
-// }
 
 function buy() 
 {
-	// $.ajax({
-    //           type:'POST',
-    //           url: "{{ url_for('foo')}}",
-    //           dataType:"text",
-    //           success: function(response){
-    //             //  console.log(response);
-	// 			//  alert(response);
-	// 			var result_py = JSON.parse(response);
-	// 			console.log(result_py.message);
-				
-	// 			// return result_py;
-    //           }
-    //   });
-	// console.log(result_py.message);
+	
 	var p = player[turn];
 	var property = square[p.position];
 	var cost = property.price;
@@ -2455,32 +1558,6 @@ function buy()
 				// return result_py;
               }
       	});
-		// if(result === 1)
-		// {
-		// 	if(property.owner)
-		// 	{
-		// 		var temp = player[property.owner];
-		// 		temp.money -= reward[property.level-1];
-		// 		addAlert(temp.name + " loses " + reward[property.level-1] + " points, from " + property.name);
-		// 	}
-		// 	addAlert(p.name + " solved " + property.name + " on level " + stages[skiplevel] +" and received " + reward[skiplevel] + " points.");
-		// 	p.money += reward[skiplevel];
-		// 	property.level = skiplevel + 1;
-		// 	property.updateSquare();
-		// 	property.owner = turn;		
-		// }
-		// else
-		// {
-		// 	if(p.usefreehit === 1)
-		// 		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[property.level] +" , but uses free hit card to avoid penalty ");	
-		// 	else
-		// 	{
-		// 		addAlert(p.name + " failed to solve " + property.name + " on level " + stages[skiplevel] +" and lost " + reward[skiplevel]/4 + " points.");
-		// 		p.money -= reward[skiplevel]/4;
-		// 	}
-		// }
-		// skipuse = -1;
-		// skiplevel = -1;
 	}
 
 	else
@@ -2531,20 +1608,7 @@ function buy()
 		
 	}
 	
-	// if (p.money >= cost) {
-	// 	p.pay(cost, 0);
 
-	// 	property.owner = turn;
-	// 	updateMoney();
-	// 	addAlert(p.name + " bought " + property.name + " for " + property.pricetext + ".");
-
-	// 	updateOwned();
-
-	// 	$("#landed").hide();
-
-	// } else {
-	// 	popup("<p>" + p.name + ", you need $" + (property.price - p.money) + " more to buy " + property.name + ".</p>");
-	// }
 }
 
 
@@ -2750,60 +1814,7 @@ function land(increasedRent) {
 	{
 		var rent;
 
-		// Railroads
-		// if (p.position == 5 || p.position == 15 || p.position == 25 || p.position == 35) {
-		// 	if (increasedRent) {
-		// 		rent = 25;
-		// 	} else {
-		// 		rent = 12.5;
-		// 	}
 
-		// 	if (s.owner == square[5].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[15].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[25].owner) {
-		// 		rent *= 2;
-		// 	}
-		// 	if (s.owner == square[35].owner) {
-		// 		rent *= 2;
-		// 	}
-
-		// } else if (p.position === 12) {
-		// 	if (increasedRent || square[28].owner == s.owner) {
-		// 		rent = (die1 + die2) * 10;
-		// 	} else {
-		// 		rent = (die1 + die2) * 4;
-		// 	}
-
-		// } else if (p.position === 28) {
-		// 	if (increasedRent || square[12].owner == s.owner) {
-		// 		rent = (die1 + die2) * 10;
-		// 	} else {
-		// 		rent = (die1 + die2) * 4;
-		// 	}
-
-		// } else {
-
-		// 	for (var i = 0; i < 40; i++) {
-		// 		sq = square[i];
-		// 		if (sq.groupNumber == s.groupNumber && sq.owner != s.owner) {
-		// 			groupowned = false;
-		// 		}
-		// 	}
-
-		// 	if (!groupowned) {
-		// 		rent = s.baserent;    
-		// 	} else {
-		// 		if (s.house === 0) {
-		// 			rent = s.baserent * 2;
-		// 		} else {
-		// 			rent = s["rent" + s.house];
-		// 		}
-		// 	}
-		// }
 		if(s.level === 3)
 		{
 			rent = 12/8;
@@ -2820,11 +1831,7 @@ function land(increasedRent) {
 
 			if(p.skipcard > 0 && s.level < 2)
 				document.getElementById("landed").innerHTML += "<div> You have " +p.skipcard+ " available skip cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipbutton();' value='Use Skip Card ' title='Skip " + ".'/></div>";
-			// addAlert(p.name + " paid $" + rent + " rent to " + player[s.owner].name + ".");
-			// p.pay(rent, s.owner);
-			// player[s.owner].money += rent;
 
-			// document.getElementById("landed").innerHTML = "You landed on " + s.name + ". " + player[s.owner].name + " collected $" + rent + " rent.";
 		}
 
 		
@@ -2840,33 +1847,7 @@ function land(increasedRent) {
 			document.getElementById("landed").innerHTML += "<div> You have " +p.skipcard+ " available skip cards <a href='javascript:void(0);'   class='statscellcolor'>" + "</a>.<input type='button' onclick='skipbutton();' value='Use Skip Card ' title='Skip " + ".'/></div>";
 	}
 }
-	// else if (s.owner > 0 && s.owner != turn && s.mortgage) {
-	// 	document.getElementById("landed").innerHTML = "You landed on " + s.name + ". Property is mortgaged; no rent was collected.";
-	// }
 
-	// City Tax
-	// if (p.position === 4) {
-	// 	citytax();
-	// }
-
-	// Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.
-	// if (p.position === 30) {
-	// 	updateMoney();
-	// 	updatePosition();
-
-	// 	if (p.human) {
-	// 		popup("<div>Go to jail. Go directly to Jail. Do not pass GO. Do not collect $200.</div>", gotojail);
-	// 	} else {
-	// 		gotojail();
-	// 	}
-
-	// 	return;
-	// }
-
-	// // Luxury Tax
-	// if (p.position === 38) {
-	// 	luxurytax();
-	// }
 else if (p.position === 6)
 {
 	addAlert(p.name + " receives a Free Hit card! Use it to attempt any question without penalties");
@@ -2912,35 +1893,10 @@ function roll() {
 	var die2 = game.getDie(2);
 
 
-	// if (die1 == die2) {
-	// 	addAlert(p.name + " rolled " + (die1 + die2) + " - doubles.");
-	// } else {
+	
 		addAlert(p.name + " rolled " + (die1 + die2) + ".");
-	// }
-
-	// if (die1 == die2 && !p.jail) {
-	// 	updateDice(die1, die2);
-
-	// 	if (doublecount < 3) {
-	// 		document.getElementById("nextbutton").value = "Roll again";
-	// 		document.getElementById("nextbutton").title = "You threw doubles. Roll again.";
-
-	// 	// If player rolls doubles three times in a row, send him to jail
-	// 	} else if (doublecount === 3) {
-	// 		p.jail = true;
-	// 		doublecount = 0;
-	// 		addAlert(p.name + " rolled doubles three times in a row.");
-	// 		updateMoney();
-
-
-	// 		if (p.human) {
-	// 			popup("You rolled doubles three times in a row. Go to jail.", gotojail);
-	// 		} else {
-	// 			gotojail();
-	// 		}
-
-	// 		return;
-	// 	}
+	
+	
 		document.getElementById("nextbutton").value = "End turn";
 		document.getElementById("nextbutton").title = "End turn and advance to the next player.";
 		doublecount = 0;
@@ -2949,50 +1905,6 @@ function roll() {
 	updateMoney();
 	updateOwned();
 
-	// if (p.jail === true) {
-	// 	p.jailroll++;
-
-	// 	updateDice(die1, die2);
-	// 	if (die1 == die2) {
-	// 		document.getElementById("jail").style.border = "1px solid black";
-	// 		document.getElementById("cell11").style.border = "2px solid " + p.color;
-	// 		$("#landed").hide();
-
-	// 		p.jail = false;
-	// 		p.jailroll = 0;
-	// 		p.position = 10 + die1 + die2;
-	// 		doublecount = 0;
-
-	// 		addAlert(p.name + " rolled doubles to get out of jail.");
-
-	// 		land();
-	// 	} else {
-	// 		if (p.jailroll === 3) {
-
-	// 			if (p.human) {
-	// 				popup("<p>You must pay the $50 fine.</p>", function() {
-	// 					payfifty();
-	// 					player[turn].position=10 + die1 + die2;
-	// 					land();
-	// 				});
-	// 			} else {
-	// 				payfifty();
-	// 				p.position = 10 + die1 + die2;
-	// 				land();
-	// 			}
-	// 		} else {
-	// 			$("#landed").show();
-	// 			document.getElementById("landed").innerHTML = "You are in jail.";
-
-			// 	if (!p.human) {
-			// 		popup(p.AI.alertList, game.next);
-			// 		p.AI.alertList = "";
-			// 	}
-			// }
-		// }
-
-
-	// } else {
 		updateDice(die1, die2);
 
 		// Move player
@@ -3122,18 +2034,7 @@ function setup() {
 	play();
 }
 
-// function togglecheck(elementid) {
-	// element = document.getElementById(elementid);
 
-	// if (window.event.srcElement.id == elementid)
-		// return;
-
-	// if (element.checked) {
-		// element.checked = false;
-	// } else {
-		// element.checked = true;
-	// }
-// }
 
 function getCheckedProperty() {
 	for (var i = 0; i < 42; i++) {
@@ -3144,20 +2045,7 @@ function getCheckedProperty() {
 	return -1; // No property is checked.
 }
 
-// function propertycell_onclick(element, num) {
-	// togglecheck("propertycheckbox" + num);
-	// if (document.getElementById("propertycheckbox" + num).checked) {
 
-		// // Uncheck all other boxes.
-		// for (var i = 0; i < 40; i++) {
-			// if (i !== num && document.getElementById("propertycheckbox" + i)) {
-				// document.getElementById("propertycheckbox" + i).checked = false;
-			// }
-		// }
-	// }
-
-	// updateOption();
-// }
 
 function playernumber_onchange() {
 	pcount = parseInt(document.getElementById("playernumber").value, 10);
@@ -3187,28 +2075,9 @@ window.onload = function() {
 		player[i].index = i;
 	}
 
-	// var groupPropertyArray = [];
-	// var groupNumber;
 
-	// for (var i = 0; i < 40; i++) {
-	// 	groupNumber = square[i].groupNumber;
-
-	// 	if (groupNumber > 0) {
-	// 		if (!groupPropertyArray[groupNumber]) {
-	// 			groupPropertyArray[groupNumber] = [];
-	// 		}
-
-	// 		groupPropertyArray[groupNumber].push(i);
-	// 	}
-	// }
 
 	for (var i = 0; i < 24; i++) {
-		// groupNumber = square[i].groupNumber;
-
-		// if (groupNumber > 0) {
-		// 	square[i].group = groupPropertyArray[groupNumber];
-		// }
-
 		square[i].index = i;
 	}
 
